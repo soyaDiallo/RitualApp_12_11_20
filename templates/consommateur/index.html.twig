@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Consommateur index{% endblock %}
+
+{% block body %}
+    <h1>Consommateur index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Password</th>
+                <th>Nom</th>
+                <th>PhotoUrl</th>
+                <th>Telephone</th>
+                <th>DateCreation</th>
+                <th>DateDesactivation</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for consommateur in consommateurs %}
+            <tr>
+                <td>{{ consommateur.id }}</td>
+                <td>{{ consommateur.email }}</td>
+                <td>{{ consommateur.roles ? consommateur.roles|json_encode : '' }}</td>
+                <td>{{ consommateur.password }}</td>
+                <td>{{ consommateur.nom }}</td>
+                <td>{{ consommateur.photoUrl }}</td>
+                <td>{{ consommateur.telephone }}</td>
+                <td>{{ consommateur.dateCreation ? consommateur.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ consommateur.dateDesactivation ? consommateur.dateDesactivation|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('consommateur_show', {'id': consommateur.id}) }}">show</a>
+                    <a href="{{ path('consommateur_edit', {'id': consommateur.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('consommateur_new') }}">Create new</a>
+{% endblock %}

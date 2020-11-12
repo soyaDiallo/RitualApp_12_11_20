@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Consommateur{% endblock %}
+
+{% block body %}
+    <h1>Create new Consommateur</h1>
+
+    {{ include('consommateur/_form.html.twig') }}
+
+    <a href="{{ path('consommateur_index') }}">back to list</a>
+{% endblock %}

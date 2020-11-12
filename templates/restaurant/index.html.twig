@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Restaurant index{% endblock %}
+
+{% block body %}
+    <h1>Restaurant index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Password</th>
+                <th>Nom</th>
+                <th>PhotoUrl</th>
+                <th>Telephone</th>
+                <th>DateCreation</th>
+                <th>DateDesactivation</th>
+                <th>Slogan</th>
+                <th>Longitude</th>
+                <th>Latitude</th>
+                <th>Adresse</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for restaurant in restaurants %}
+            <tr>
+                <td>{{ restaurant.id }}</td>
+                <td>{{ restaurant.email }}</td>
+                <td>{{ restaurant.roles ? restaurant.roles|json_encode : '' }}</td>
+                <td>{{ restaurant.password }}</td>
+                <td>{{ restaurant.nom }}</td>
+                <td>{{ restaurant.photoUrl }}</td>
+                <td>{{ restaurant.telephone }}</td>
+                <td>{{ restaurant.dateCreation ? restaurant.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ restaurant.dateDesactivation ? restaurant.dateDesactivation|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ restaurant.slogan }}</td>
+                <td>{{ restaurant.longitude }}</td>
+                <td>{{ restaurant.latitude }}</td>
+                <td>{{ restaurant.adresse }}</td>
+                <td>
+                    <a href="{{ path('restaurant_show', {'id': restaurant.id}) }}">show</a>
+                    <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="14">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('restaurant_new') }}">Create new</a>
+{% endblock %}
