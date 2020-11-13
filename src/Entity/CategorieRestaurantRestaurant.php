@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CategorieRestaurantRestaurantRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 

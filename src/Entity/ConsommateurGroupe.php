@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ConsommateurGroupeRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

@@ -1,37 +1,41 @@
 {% extends 'profil/aside.html.twig' %}
 
-{% block content_subheader %}
-	<!--begin::Page Title-->
-	<h5 class="text-dark font-weight-bold my-1 mr-5">Profil</h5>
-	<!--end::Page Title-->
-	<!--begin::Breadcrumb-->
-	<ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
-		<li class="breadcrumb-item text-muted">
-			<span class="text-muted">Application</span>
-		</li>
+{% block content_subheader_text %}
+	<!--begin::Page Heading-->
+	<div
+		class="d-flex align-items-baseline flex-wrap mr-5">
+		<!--begin::Page Title-->
+		<h5 class="text-dark font-weight-bold my-1 mr-5">Profil</h5>
+		<!--end::Page Title-->
+		<!--begin::Breadcrumb-->
+		<ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+			<li class="breadcrumb-item text-muted">
+				<span class="text-muted">Application</span>
+			</li>
 
-		{% if is_granted('ROLE_CONSOMMATEUR') %}
-			<li class="breadcrumb-item text-muted">
-				<a href="{{ path('consommateur_index') }}" class="text-muted">Accueil</a>
-			</li>
-		{% elseif is_granted('ROLE_RESTAURANT') %}
-			<li class="breadcrumb-item text-muted">
-				<a href="{{ path('restaurant_index') }}" class="text-muted">Accueil</a>
-			</li>
-		{% elseif is_granted('ROLE_ADMINISTRATEUR') %}
-			<li class="breadcrumb-item text-muted">
-				<a href="{{ path('administrateur_index') }}" class="text-muted">Accueil</a>
-			</li>
-		{% endif %}
+			{% if is_granted('ROLE_CONSOMMATEUR') %}
+				<li class="breadcrumb-item text-muted">
+					<a href="{{ path('consommateur_index') }}" class="text-muted">Accueil</a>
+				</li>
+			{% elseif is_granted('ROLE_RESTAURANT') %}
+				<li class="breadcrumb-item text-muted">
+					<a href="{{ path('restaurant_index') }}" class="text-muted">Accueil</a>
+				</li>
+			{% elseif is_granted('ROLE_ADMINISTRATEUR') %}
+				<li class="breadcrumb-item text-muted">
+					<a href="{{ path('administrateur_index') }}" class="text-muted">Accueil</a>
+				</li>
+			{% endif %}
 
-		<li class="breadcrumb-item text-muted">
-			<a href="{{ path('profile_index') }}" class="text-muted">Profil utilisateur</a>
-		</li>
-		<li class="breadcrumb-item text-muted">
-			<a href="#" class="text-muted">Informations du compte</a>
-		</li>
-	</ul>
-	<!--end::Breadcrumb-->
+			<li class="breadcrumb-item text-muted">
+				<a href="{{ path('profile_index') }}" class="text-muted">Profil utilisateur</a>
+			</li>
+			<li class="breadcrumb-item text-muted">
+				<a href="#" class="text-muted">Informations du compte</a>
+			</li>
+		</ul>
+		<!--end::Breadcrumb-->
+	</div>
 {% endblock %}
 
 {% block aside_nav %}

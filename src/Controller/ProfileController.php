@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/profil")
- * @Security("is_granted('ROLE_USER')")
+ * @Security("is_granted('ROLE_CONSOMMATEUR')")
  */
 class ProfileController extends AbstractController
 {
@@ -52,8 +52,6 @@ class ProfileController extends AbstractController
         $em = $this->getDoctrine()->getManager();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //  $this->getDoctrine()->getManager()->flush();
-
             $oldPassword = $request->request->get('modification_compte')['oldPassword'];
             $newPassword = $request->request->get('modification_compte')['plainPassword']['first'];
             $confirmPassword = $request->request->get('modification_compte')['plainPassword']['second'];

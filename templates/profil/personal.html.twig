@@ -1,37 +1,46 @@
 {% extends 'profil/aside.html.twig' %}
 
-{% block content_subheader %}
-	<!--begin::Page Title-->
-	<h5 class="text-dark font-weight-bold my-1 mr-5">Profil</h5>
-	<!--end::Page Title-->
-	<!--begin::Breadcrumb-->
-	<ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
-		<li class="breadcrumb-item text-muted">
-			<span class="text-muted">Application</span>
-		</li>
+{% block content_subheader_text %}
+	<!--begin::Page Heading-->
+	<div
+		class="d-flex align-items-baseline flex-wrap mr-5">
+		<!--begin::Page Title-->
+		<h5 class="text-dark font-weight-bold my-1 mr-5">Profil</h5>
+		<!--end::Page Title-->
+		<!--begin::Breadcrumb-->
+		<ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+			<li class="breadcrumb-item text-muted">
+				<span class="text-muted">Application</span>
+			</li>
 
-		{% if is_granted('ROLE_CONSOMMATEUR') %}
-			<li class="breadcrumb-item text-muted">
-				<a href="{{ path('consommateur_index') }}" class="text-muted">Accueil</a>
-			</li>
-		{% elseif is_granted('ROLE_RESTAURANT') %}
-			<li class="breadcrumb-item text-muted">
-				<a href="{{ path('restaurant_index') }}" class="text-muted">Accueil</a>
-			</li>
-		{% elseif is_granted('ROLE_ADMINISTRATEUR') %}
-			<li class="breadcrumb-item text-muted">
-				<a href="{{ path('administrateur_index') }}" class="text-muted">Accueil</a>
-			</li>
-		{% endif %}
+			{% if is_granted('ROLE_CONSOMMATEUR') %}
+				<li class="breadcrumb-item text-muted">
+					<a href="{{ path('consommateur_index') }}" class="text-muted">Accueil</a>
+				</li>
+			{% elseif is_granted('ROLE_RESTAURANT') %}
+				<li class="breadcrumb-item text-muted">
+					<a href="{{ path('restaurant_index') }}" class="text-muted">Accueil</a>
+				</li>
+			{% elseif is_granted('ROLE_ADMINISTRATEUR') %}
+				<li class="breadcrumb-item text-muted">
+					<a href="{{ path('administrateur_index') }}" class="text-muted">Accueil</a>
+				</li>
+			{% endif %}
 
-		<li class="breadcrumb-item text-muted">
-			<a href="{{ path('profile_index') }}" class="text-muted">Profil utilisateur</a>
-		</li>
-		<li class="breadcrumb-item text-muted">
-			<a href="#" class="text-muted">Informations personnelles</a>
-		</li>
-	</ul>
-	<!--end::Breadcrumb-->
+			<li class="breadcrumb-item text-muted">
+				<a href="{{ path('profile_index') }}" class="text-muted">Profil utilisateur</a>
+			</li>
+			<li class="breadcrumb-item text-muted">
+				<a href="#" class="text-muted">Informations personnelles</a>
+			</li>
+		</ul>
+		<!--end::Breadcrumb-->
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('js/pages/widgetse8da.js?v=2.0.3') }}"></script>
+	<script src="{{ asset('js/pages/custom/profile/profilee8da.js?v=2.0.3') }}"></script>
 {% endblock %}
 
 {% block profile_content_body %}
@@ -63,6 +72,28 @@
 						<h5 class="font-weight-bold mb-6">Information Utilisateur</h5>
 					</div>
 				</div>
+
+				<div class="form-group row">
+					<label class="col-xl-3 col-lg-3 col-form-label text-right">Photo</label>
+					<div class="col-lg-9 col-xl-6">
+						<div class="image-input image-input-outline" id="kt_profile_avatar" style="background-image: url('{{ asset('media/users/blank.png') }}')">
+							<div class="image-input-wrapper" style="background-image: url('{{ asset('media/users/blank.png') }}')"></div>
+							<label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
+								<i class="fa fa-pen icon-sm text-muted"></i>
+								<input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg"/>
+								<input type="hidden" name="profile_avatar_remove"/>
+							</label>
+							<span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="Cancel avatar">
+								<i class="ki ki-bold-close icon-xs text-muted"></i>
+							</span>
+							<span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove" data-toggle="tooltip" title="Remove avatar">
+								<i class="ki ki-bold-close icon-xs text-muted"></i>
+							</span>
+						</div>
+						<span class="form-text text-muted">Type de fichier autorisé: png, jpg, jpeg.</span>
+					</div>
+				</div>
+
 				<div class="form-group row">
 					<label class="col-xl-3 col-lg-3 col-form-label text-right">Nom</label>
 					<div class="col-lg-9 col-xl-6">
@@ -70,7 +101,7 @@
 						<span class="form-text text-danger">{{ form_errors(form.nom) }}</span>
 					</div>
 				</div>
-				
+
 				<div class="row">
 					<label class="col-xl-3"></label>
 					<div class="col-lg-9 col-xl-6">

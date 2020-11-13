@@ -319,6 +319,5 @@ class Article
 
         return $this;
     }
-
     
 }

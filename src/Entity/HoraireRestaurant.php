@@ -4,12 +4,12 @@ namespace App\Entity;
 
 
 use App\Repository\HoraireRestaurantRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 
 /**
  * @ORM\Entity(repositoryClass=HoraireRestaurantRepository::class)
- * 
  */
 class HoraireRestaurant
 {
@@ -17,28 +17,21 @@ class HoraireRestaurant
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
-     * 
-     * 
      */
     private $heureDebut;
 
     /**
      * @ORM\Column(type="integer")
-     * 
-     * 
      */
     private $duree;
 
     /**
      * @ORM\Column(type="datetime")
-     * 
-     * 
      */
     private $dateSuppression;
 

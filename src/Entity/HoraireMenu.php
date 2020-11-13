@@ -4,6 +4,7 @@ namespace App\Entity;
 
 
 use App\Repository\HoraireMenuRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

@@ -22,11 +22,6 @@ class RegistrationFormType extends AbstractType
     {
         $user = new User();
         $builder
-            ->add('roles', ChoiceType::class, [
-                'label' => 'Rôle Compte',
-                'choices' => $user->getRolesList(),
-                'multiple' => false
-            ])
             ->add('email', EmailType::class, [
                 'attr' => [
                     'placeholder' => 'Adresse Email',
@@ -66,38 +61,7 @@ class RegistrationFormType extends AbstractType
                         'max' => 255,
                     ])
                 ]
-            ])
-            ->add('photoUrl', TextType::class, [
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Le prénom ne doit pas être vide',
-                    ]),
-                    new Length([
-                        'min' => 3,
-                        'minMessage' => 'Le prénom doit avoir au moins 3 caractères',
-                        'max' => 255,
-                    ])
-                ]
-            ])
-            ->add('telephone', TelType::class, [
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Le téléphone ne doit pas être vide',
-                    ]),
-                ]
             ]);
-
-        $builder->get('roles')
-            ->addModelTransformer(new CallbackTransformer(
-                function ($rolesArray) {
-                    // transform the array to a string
-                    return count($rolesArray) ? $rolesArray[0] : null;
-                },
-                function ($rolesString) {
-                    // transform the string back to an array
-                    return [$rolesString];
-                }
-            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

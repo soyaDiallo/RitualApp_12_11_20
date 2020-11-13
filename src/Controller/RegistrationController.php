@@ -34,47 +34,13 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            $type = $form->get('roles')->getData();
-            switch ($type[0]) {
-                case "ROLE_CONSOMMATEUR":
-                    $consommateur = new Consommateur();
-                    $consommateur->setNom($user->getNom());
-                    $consommateur->setPhotoUrl($user->getPhotoUrl());
-                    $consommateur->setEmail($user->getEmail());
-                    $consommateur->setTelephone($user->getTelephone());
-                    $consommateur->setDateCreation(new \DateTime());
-                    $consommateur->setPassword($user->getPassword());
-                    $user = $consommateur;
-                    $role = ['ROLE_CONSOMMATEUR'];
-                    break;
-                case 'ROLE_RESTAURANT':
-                    $resto = new Restaurant();
-                    $resto->setNom($user->getNom());
-                    $resto->setPhotoUrl($user->getPhotoUrl());
-                    $resto->setEmail($user->getEmail());
-                    $resto->setTelephone($user->getTelephone());
-                    $resto->setDateCreation(new \DateTime());
-                    $resto->setPassword($user->getPassword());
-                    $user = $resto;
-                    $role = ['ROLE_RESTAURANT'];
-                    break;
-                case 'ROLE_ADMINISTRATEUR':
-                    $admin = new Administrateur();
-                    $admin->setNom($user->getNom());
-                    $admin->setPhotoUrl($user->getPhotoUrl());
-                    $admin->setEmail($user->getEmail());
-                    $admin->setTelephone($user->getTelephone());
-                    $admin->setDateCreation(new \DateTime());
-                    $admin->setPassword($user->getPassword());
-                    $user = $admin;
-                    $role = ['ROLE_ADMINISTRATEUR'];
-                    break;
-
-                default:
-                    return $this->redirectToRoute('app_login');
-                    break;
-            }
-
+            $consommateur = new Consommateur();
+            $consommateur->setNom($user->getNom());
+            $consommateur->setEmail($user->getEmail());
+            $consommateur->setDateCreation(new \DateTime());
+            $consommateur->setPassword($user->getPassword());
+            $user = $consommateur;
+            $role = ['ROLE_CONSOMMATEUR'];
             $user->setRoles($role);
 
             $entityManager = $this->getDoctrine()->getManager();
