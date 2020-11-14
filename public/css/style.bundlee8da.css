@@ -53621,7 +53621,7 @@ code {
     transform: rotate(360deg); } }
 
 .sticky-toolbar {
-  width: 46px;
+  width: 100px;
   position: fixed;
   top: 30%;
   right: 0;

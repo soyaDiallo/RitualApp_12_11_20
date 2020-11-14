@@ -1,6 +1,6 @@
 {% extends 'content.html.twig' %}
 
-{% block title %}Les restaurants
+{% block title %}Restaurant -
 {% endblock %}
 
 {% block content_header %}
@@ -215,36 +215,7 @@
 	<!--end::Topbar-->
 {% endblock %}
 
-{% block content_subheader_text %}
-	<!--begin::Page Heading-->
-	<div
-		class="d-flex align-items-baseline flex-wrap mr-5">
-		<!--begin::Page Title-->
-		<h5 class="text-dark font-weight-bold my-1 mr-5">Accueil
-			<small class="text-muted ml-1">Listes des restaurants</small>
-		</h5>
-		<!--end::Page Title-->
-	</div>
-	<!--end::Page Heading-->
-{% endblock %}
-
-{% block content_subheader_right %}
-	<!--begin::Toolbar-->
-	<div
-		class="d-flex align-items-center flex-wrap">
-		<!--begin::Daterange-->
-		<a href="#" class="btn btn-light-primary font-weight-bolder px-5 mr-3 my-1" id="kt_dashboard_daterangepicker" data-toggle="tooltip" title="Select dashboard daterange" data-placement="top">
-			<span class="opacity-60 font-weight-bold mr-2">Position:</span>
-			<span class="font-weight-bolder">Aug 16</span>
-		</a>
-		<!--end::Daterange-->
-	</div>
-	<!--end::Toolbar-->
-{% endblock %}
-
-{% block javascripts %}
-	<script src="{{ asset('js/pages/features/miscellaneous/sticky-panelse8da.js?v=2.0.3') }}"></script>
-{% endblock %}
+{% block content_subheader %}{% endblock %}
 
 {% block content_body %}
 	<!--begin::Entry-->
@@ -252,9 +223,92 @@
 		class="d-flex flex-column-fluid">
 		<!--begin::Container-->
 		<div class="container-fluid">
-			<div class="row" data-sticky-container="">
+			<div class="row">
+				<div class="col-lg-9">
+					<div class="row">
+						<div
+							class="col-lg-12">
+							<!--begin::Card-->
+							<div class="card card-custom gutter-b card-sticky" id="kt_page_sticky_card">
+								<div class="card-header">
+									<div class="card-title">
+										<h1 class="card-label h1">Sticky Form Actions</h1>
+									</div>
+
+									<div class="card-toolbar">
+										<div class="dropdown dropdown-inline">
+											<a href="#" class="btn btn-hover-light-primary btn-icon btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												<i class="ki ki-bold-more-hor "></i>
+											</a>
+										</div>
+									</div>
+								</div>
+
+								<div class="card-body">
+									<div class="card-toolbar">
+										<ul class="nav nav-light-primary nav-bold nav-pills">
+											<li class="nav-item">
+												<a class="nav-link active" data-toggle="tab" href="#kt_tab_pane_5_1">
+													<span class="nav-text">Week</span>
+												</a>
+											</li>
+
+											<li class="nav-item">
+												<a class="nav-link" data-toggle="tab" href="#kt_tab_pane_5_2">
+													<span class="nav-text">Month</span>
+												</a>
+											</li>
+
+											<li class="nav-item">
+												<a class="nav-link" data-toggle="tab" href="#">
+													<span class="nav-text">Year</span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!--end::Card-->
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="card card-custom gutter-b">
+								<div class="card-header">
+									<div class="card-title">
+										<h3 class="card-label">Sticky Form Actions</h3>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						{% set var = [0, 1, 2, 3] %}
+						{% for item in var %}
+							<div
+								class="col-lg-4">
+								<!--begin::Callout-->
+								<div class="card card-custom gutter-b">
+									<div class="card-body">
+										<div class="d-flex align-items-center justify-content-between p-4 flex-lg-wrap flex-xl-nowrap">
+											<div class="d-flex flex-column mr-5">
+												<a href="#" class="h4 text-dark mb-5">Customer Support</a>
+												<p class="text-dark-50">There are many variations of passages of Lorem Ipsum available.</p>
+											</div>
+											<div class="ml-6 flex-shrink-0">
+												<a href="#" class="btn font-weight-bolder btn-light-primary py-4 px-4">45 Dh</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--end::Callout-->
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+
 				<div class="col-lg-3">
-					<div class="card card-custom gutter-b sticky" data-sticky="true" data-margin-top="140px" data-sticky-for="1023" data-sticky-class="sticky">
+					<div class="card card-custom gutter-b">
 						<div class="card-body p-0">
 							<ul class="navi navi-bold navi-hover my-5" role="tablist">
 								<li class="navi-item">
@@ -342,79 +396,9 @@
 						</div>
 					</div>
 				</div>
-
-				<div class="col-lg-9">
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="card card-custom gutter-b">
-								<div class="card-header">
-									<div class="card-title">
-										<h3 class="card-label">Sticky Form Actions</h3>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						{% set var = [0, 1, 2, 3] %}
-						{% for item in var %}
-							<div
-								class="col-lg-4">
-								<!--begin::Card-->
-								<div class="card card-custom gutter-b overlay">
-									<div class="card-body p-0">
-										<div class="overlay-wrapper">
-											<img src="{{ asset('media/stock-600x400/img-7.jpg') }}" alt="" class="w-100 rounded"/>
-										</div>
-										<div class="overlay-layer m-5 rounded align-items-end justify-content-start">
-											<div class="d-flex flex-column align-items-start mb-5 ml-5">
-												<a href="{{ path('restaurants_index', {'id': 1}) }}" class="font-size-h4 font-weight-bolder text-white text-hover-primary">Deal of the Day</a>
-												<span class="label label-success label-xl label-inline mb-1 font-weight-bolder">4.5</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!--end::Card-->
-							</div>
-						{% endfor %}
-					</div>
-
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="card card-custom gutter-b">
-								<div class="card-header">
-									<div class="card-title">
-										<h3 class="card-label">Sticky Form Actions</h3>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						{% set var = [0, 1, 2, 3] %}
-						{% for item in var %}
-							<div
-								class="col-lg-4">
-								<!--begin::Card-->
-								<div class="card card-custom gutter-b overlay">
-									<div class="card-body p-0">
-										<div class="overlay-wrapper">
-											<img src="{{ asset('media/stock-600x400/img-7.jpg') }}" alt="" class="w-100 rounded"/>
-										</div>
-										<div class="overlay-layer m-5 rounded align-items-end justify-content-start">
-											<div class="d-flex flex-column align-items-start mb-5 ml-5">
-												<a href="{{ path('restaurants_index', {'id': 1}) }}" class="font-size-h4 font-weight-bolder text-white text-hover-primary">Deal of the Day</a>
-												<span class="label label-success label-xl label-inline mb-1 font-weight-bolder">4.5</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!--end::Card-->
-							</div>
-						{% endfor %}
-					</div>
-				</div>
 			</div>
-			<!--end::Container-->
 		</div>
-		<!--end::Entry-->
+		<!--end::Container-->
 	</div>
+	<!--end::Entry-->
 {% endblock %}
