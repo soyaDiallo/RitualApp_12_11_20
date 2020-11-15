@@ -221,7 +221,7 @@
 		class="d-flex align-items-baseline flex-wrap mr-5">
 		<!--begin::Page Title-->
 		<h5 class="text-dark font-weight-bold my-1 mr-5">Accueil
-			<small class="text-muted ml-1">Listes des restaurants</small>
+			<small class="text-muted ml-3">Listes des restaurants</small>
 		</h5>
 		<!--end::Page Title-->
 	</div>
@@ -233,13 +233,37 @@
 	<div
 		class="d-flex align-items-center flex-wrap">
 		<!--begin::Daterange-->
-		<a href="#" class="btn btn-light-primary font-weight-bolder px-5 mr-3 my-1" id="kt_dashboard_daterangepicker" data-toggle="tooltip" title="Select dashboard daterange" data-placement="top">
-			<span class="opacity-60 font-weight-bold mr-2">Position:</span>
-			<span class="font-weight-bolder">Aug 16</span>
-		</a>
+		<div  data-toggle="tooltip" title="Select dashboard daterange" data-placement="top">
+			<button type="button" class="btn btn-light-primary font-weight-bold px-5 mr-3 my-1" data-toggle="modal" data-target="#modalPosition">
+				<span class="opacity-80 svg-icon svg-icon-2x">
+					<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/keen/releases/2020-10-07-041015/theme/demo6/dist/../src/media/svg/icons/Map/Marker2.svg-->
+					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+						<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+							<rect x="0" y="0" width="24" height="24"/>
+							<path d="M9.82829464,16.6565893 C7.02541569,15.7427556 5,13.1079084 5,10 C5,6.13400675 8.13400675,3 12,3 C15.8659932,3 19,6.13400675 19,10 C19,13.1079084 16.9745843,15.7427556 14.1717054,16.6565893 L12,21 L9.82829464,16.6565893 Z M12,12 C13.1045695,12 14,11.1045695 14,10 C14,8.8954305 13.1045695,8 12,8 C10.8954305,8 10,8.8954305 10,10 C10,11.1045695 10.8954305,12 12,12 Z" fill="#000000"/>
+						</g>
+					</svg>
+					<!--end::Svg Icon-->
+				</span>
+
+				<span class="font-weight-bolder">Aug 16</span>
+			</button>
+		</div>
 		<!--end::Daterange-->
 	</div>
 	<!--end::Toolbar-->
+
+	<!--begin::Modal-->
+	<div class="modal fade" id="modalPosition" tabindex="-1" role="dialog" aria-labelledby="modalPosition" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-body text-center">
+					---.---
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--end::Modal-->
 {% endblock %}
 
 {% block javascripts %}
@@ -255,90 +279,32 @@
 			<div class="row" data-sticky-container="">
 				<div class="col-lg-3">
 					<div class="card card-custom gutter-b sticky" data-sticky="true" data-margin-top="140px" data-sticky-for="1023" data-sticky-class="sticky">
-						<div class="card-body p-0">
-							<ul class="navi navi-bold navi-hover my-5" role="tablist">
-								<li class="navi-item">
-									<a class="navi-link active" data-toggle="tab" href="#kt_profile_tab_personal_information">
-										<span class="navi-icon">
-											<i class="flaticon-avatar"></i>
-										</span>
-										<span class="navi-text">Personal Information</span>
-									</a>
-								</li>
-								<li class="navi-item">
-									<a class="navi-link" data-toggle="tab" href="#kt_profile_tab_account_information">
-										<span class="navi-icon">
-											<i class="flaticon-lock"></i>
-										</span>
-										<span class="navi-text">Acccount Information</span>
-									</a>
-								</li>
-								<li class="navi-item">
-									<a class="navi-link" data-toggle="tab" href="#kt_profile_change_password">
-										<span class="navi-icon">
-											<i class="flaticon-settings"></i>
-										</span>
-										<span class="navi-text">Change Password</span>
-									</a>
-								</li>
-								<li class="navi-item">
-									<a class="navi-link" data-toggle="tab" href="#kt_profile_email_settings">
-										<span class="navi-icon">
-											<i class="flaticon-multisymbol-2"></i>
-										</span>
-										<span class="navi-text">Email Settings</span>
-									</a>
-								</li>
-								<li class="navi-item">
-									<a class="navi-link" href="#" data-toggle="tooltip" title="" data-placement="right" data-original-title="This feature is coming soon!">
-										<span class="navi-icon">
-											<i class="flaticon-coins"></i>
-										</span>
-										<span class="navi-text">Saved Credit Cards</span>
-									</a>
-								</li>
-								<li class="navi-item">
-									<a class="navi-link" href="#" data-toggle="tooltip" title="" data-placement="right" data-original-title="This feature is coming soon!">
-										<span class="navi-icon">
-											<i class="flaticon-customer"></i>
-										</span>
-										<span class="navi-text">Social Networks</span>
-									</a>
-								</li>
-								<li class="navi__separator"></li>
-								<li class="navi-item">
-									<a class="navi-link" href="#" data-toggle="tooltip" title="" data-placement="right" data-original-title="This feature is coming soon!">
-										<span class="navi-icon">
-											<i class="flaticon-diagram"></i>
-										</span>
-										<span class="navi-text">Tax Information</span>
-									</a>
-								</li>
-								<li class="navi-item">
-									<a class="navi-link" href="#" data-toggle="tooltip" title="" data-placement="right" data-original-title="This feature is coming soon!">
-										<span class="navi-icon">
-											<i class="flaticon-bag"></i>
-										</span>
-										<span class="navi-text">Purchases</span>
-									</a>
-								</li>
-								<li class="navi-item">
-									<a class="navi-link" href="#" data-toggle="tooltip" title="" data-placement="right" data-original-title="This feature is coming soon!">
-										<span class="navi-icon">
-											<i class="flaticon-tabs"></i>
-										</span>
-										<span class="navi-text">Statements</span>
-									</a>
-								</li>
-								<li class="navi-item">
-									<a class="navi-link" href="#" data-toggle="tooltip" title="" data-placement="right" data-original-title="This feature is coming soon!">
-										<span class="navi-icon">
-											<i class="flaticon-share"></i>
-										</span>
-										<span class="navi-text">Audit Log</span>
-									</a>
-								</li>
-							</ul>
+						<div class="card-header">
+							<div class="card-title">
+								<h3 class="card-label">Sticky Form Actions</h3>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<label class="h6 font-weight-bold pb-3">Default radios</label>
+								<div class="radio-list">
+									<label class="radio py-1 font-weight-bold">
+										<input type="radio" name="radios1"/>
+										<span></span>
+										Default
+									</label>
+									<label class="radio py-1 font-weight-bold">
+										<input type="radio" name="radios1"/>
+										<span></span>
+										Disabled
+									</label>
+									<label class="radio py-1 font-weight-bold">
+										<input type="radio" checked="checked" name="radios1"/>
+										<span></span>
+										Checked
+									</label>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
