@@ -1,6 +1,6 @@
 {% extends 'content.html.twig' %}
 
-{% block title %}Restaurant -
+{% block title %}
 	{{restaurant.nom}}
 {% endblock %}
 
@@ -267,14 +267,14 @@
 												{% if item[1] %}
 													{% if var == 0 %}
 														<li class="nav-item">
-															<a class="nav-link active" data-toggle="tab" href="#menu_{{item[0].id}}">
+															<a class="nav-link active" href="#menu_{{item[0].id}}">
 																<span class="nav-text">{{item[0].titre}}</span>
 															</a>
 														</li>
 														{% set var = 1 %}
 													{% else %}
 														<li class="nav-item">
-															<a class="nav-link" data-toggle="tab" href="#menu_{{item[0].id}}">
+															<a class="nav-link" href="#menu_{{item[0].id}}">
 																<span class="nav-text">{{item[0].titre}}</span>
 															</a>
 														</li>
@@ -350,7 +350,8 @@
 																						<span></span>
 																						{{g.supplement.titre}}
 																					</label>
-																					<h3 class="font-size-h5 font-weight-bold float-right p-0 m-0">+100 pts</h3>
+																					<h3 class="font-size-h6 font-weight-bold float-right p-0 m-0">+{{groupe[2][g.id][0].prix.montant}}
+																						{{groupe[2][g.id][0].prix.devise}}</h3>
 																				</div>
 																			{% endfor %}
 																		</div>
@@ -363,7 +364,8 @@
 																						<span></span>
 																						{{g.supplement.titre}}
 																					</label>
-																					<h3 class="font-size-h5 font-weight-bold float-right p-0 m-0">+100 pts</h3>
+																					<h3 class="font-size-h6 font-weight-bold float-right p-0 m-0">+{{groupe[2][g.id][0].prix.montant}}
+																						{{groupe[2][g.id][0].prix.devise}}</h3>
 																				</div>
 																			{% endfor %}
 																		</div>
@@ -413,9 +415,9 @@
 
 					<div class="card card-custom gutter-b p-0">
 						<div class="card-body p-7">
-							<p class="text-muted font-weight-bold p-0 m-0">{{restaurant.slogan}}</p>
+							<p class="text-dark font-weight-bold p-0 m-0">{{restaurant.slogan}}</p>
 							<div class="separator separator-solid separator-border-1 m-5"></div>
-							<p class="text-dark font-weight-bold p-0 m-0">{{restaurant.adresse}}</p>
+							<p class="text-dark-50 font-weight-bold p-0 m-0">{{restaurant.adresse}}</p>
 						</div>
 					</div>
 				</div>

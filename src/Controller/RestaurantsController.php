@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\ArticleMenuRepository;
 use App\Repository\ArticlePrixRepository;
+use App\Repository\ArticleSupplementPrixRepository;
 use App\Repository\ArticleSupplementRepository;
 use App\Repository\GroupeSupplementRepository;
 use App\Repository\MenuRepository;
@@ -27,6 +28,7 @@ class RestaurantsController extends AbstractController
         ArticleMenuRepository $articleMenuRepository,
         ArticlePrixRepository $articlePrixRepository,
         ArticleSupplementRepository $articleSupplementRepository,
+        ArticleSupplementPrixRepository $articleSupplementPrixRepository,
         GroupeSupplementRepository $groupeSupplementRepository,
         int $id = 0
     ): Response {
@@ -44,14 +46,15 @@ class RestaurantsController extends AbstractController
                 foreach ($groupesSupplements as $valueGroupe) {
                     $temp = $articleSupplementRepository->findBy(["article" => $valueArticle->getArticle()->getId(), "groupeSupplement" => $valueGroupe->getId(), "dateDesactivation" => null]);
                     if ($temp) {
-                        $menusArticles[$key][3][$valueArticle->getArticle()->getId()][$valueGroupe->getId()][] = $valueGroupe;
-                        $menusArticles[$key][3][$valueArticle->getArticle()->getId()][$valueGroupe->getId()][] = $temp;
+                        $menusArticles[$key][3][$valueArticle->getArticle()->getId()][$valueGroupe->getId()][0] = $valueGroupe;
+                        $menusArticles[$key][3][$valueArticle->getArticle()->getId()][$valueGroupe->getId()][1] = $temp;
+                        foreach ($temp as $valueTemp) {
+                            $menusArticles[$key][3][$valueArticle->getArticle()->getId()][$valueGroupe->getId()][2][$valueTemp->getId()] = $articleSupplementPrixRepository->findBy(["articleSupplement" => $valueTemp->getId()], ["date" => "DESC"], 1);
+                        }
                     }
                 }
             }
         }
-
-        //  dd($menusArticles);
 
         return $this->render('restaurants/index.html.twig', [
             'restaurant' => $restaurantRepository->find($id),
