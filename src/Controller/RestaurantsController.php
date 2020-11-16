@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Repository\ArticleMenuRepository;
 use App\Repository\ArticlePrixRepository;
+use App\Repository\ArticleSupplementRepository;
+use App\Repository\GroupeSupplementRepository;
 use App\Repository\MenuRepository;
 use App\Repository\RestaurantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,16 +26,28 @@ class RestaurantsController extends AbstractController
         MenuRepository $menuRepository,
         ArticleMenuRepository $articleMenuRepository,
         ArticlePrixRepository $articlePrixRepository,
+        ArticleSupplementRepository $articleSupplementRepository,
+        GroupeSupplementRepository $groupeSupplementRepository,
         int $id = 0
     ): Response {
         $menus = $menuRepository->findBy(["restaurant" => $id]);
+        $groupesSupplements = $groupeSupplementRepository->findAll();
+
         $menusArticles = [];
 
         foreach ($menus as $key => $value) {
             $menusArticles[$key][0] = $value;
             $menusArticles[$key][1] = $articleMenuRepository->findBy(["dateDesactivation" => null, "menu" => $value->getId()]);
+
             foreach ($menusArticles[$key][1] as $valueArticle) {
                 $menusArticles[$key][2][$valueArticle->getArticle()->getId()] = $articlePrixRepository->findBy(["article" => $valueArticle->getArticle()->getId()], ["date" => "DESC"], 1);
+                foreach ($groupesSupplements as $valueGroupe) {
+                    $temp = $articleSupplementRepository->findBy(["article" => $valueArticle->getArticle()->getId(), "groupeSupplement" => $valueGroupe->getId(), "dateDesactivation" => null]);
+                    if ($temp) {
+                        $menusArticles[$key][3][$valueArticle->getArticle()->getId()][$valueGroupe->getId()][] = $valueGroupe;
+                        $menusArticles[$key][3][$valueArticle->getArticle()->getId()][$valueGroupe->getId()][] = $temp;
+                    }
+                }
             }
         }
 

@@ -54,6 +54,11 @@ class ArticleSupplement
      */
     private $articleSupplementPrixes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=GroupeSupplement::class, inversedBy="articleSupplements")
+     */
+    private $groupeSupplement;
+
     public function __construct()
     {
         $this->articleSupplementPrixes = new ArrayCollection();
@@ -139,6 +144,18 @@ class ArticleSupplement
                 $articleSupplementPrix->setArticleSupplement(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getGroupeSupplement(): ?GroupeSupplement
+    {
+        return $this->groupeSupplement;
+    }
+
+    public function setGroupeSupplement(?GroupeSupplement $groupeSupplement): self
+    {
+        $this->groupeSupplement = $groupeSupplement;
 
         return $this;
     }

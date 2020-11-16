@@ -1,6 +1,7 @@
 {% extends 'content.html.twig' %}
 
 {% block title %}Restaurant -
+	{{restaurant.nom}}
 {% endblock %}
 
 {% block content_header %}
@@ -333,50 +334,58 @@
 														</div>
 													</div>
 
-													<div
-														class="modal-body py-0">
-														<h3 class="font-size-h3 font-weight-bolder">Les suppléments</h3>
+													<div class="modal-body py-0">
+														{% if item|length == 4 %}
+															<h3 class="font-size-h3 font-weight-bolder">Les suppléments</h3>
 
-														<div class="form-group m-0 p-0">
-															<label class="ml-5 my-2 h6 font-weight-bold">Default Chechbox</label>
-															<div class="checkbox-list">
-																<div class="clearfix my-1 p-5 border rounded">
-																	<label class="checkbox font-weight-bold float-left p-0 m-0">
-																		<input type="checkbox" name="radios1"/>
-																		<span></span>
-																		Default
-																	</label>
-																	<h3 class="font-size-h5 font-weight-bold float-right p-0 m-0">+100 pts</h3>
+															{% for groupe in item[3][article.article.id] %}
+																<div class="form-group m-0 p-0">
+																	<label class="ml-5 my-2 h6 font-weight-bold">{{groupe[0].titre}}</label>
+																	{% if groupe[0].type == "Radio" %}
+																		<div class="radio-list">
+																			{% for g in groupe[1] %}
+																				<div class="clearfix my-1 p-5 border rounded">
+																					<label class="radio font-weight-bold float-left p-0 m-0">
+																						<input type="radio" name="radios_{{groupe[0].id}}"/>
+																						<span></span>
+																						{{g.supplement.titre}}
+																					</label>
+																					<h3 class="font-size-h5 font-weight-bold float-right p-0 m-0">+100 pts</h3>
+																				</div>
+																			{% endfor %}
+																		</div>
+																	{% else %}
+																		<div class="checkbox-list">
+																			{% for g in groupe[1] %}
+																				<div class="clearfix my-1 p-5 border rounded">
+																					<label class="checkbox font-weight-bold float-left p-0 m-0">
+																						<input type="checkbox" name="checkbox_{{groupe[0].id}}"/>
+																						<span></span>
+																						{{g.supplement.titre}}
+																					</label>
+																					<h3 class="font-size-h5 font-weight-bold float-right p-0 m-0">+100 pts</h3>
+																				</div>
+																			{% endfor %}
+																		</div>
+																	{% endif %}
 																</div>
+															{% endfor %}
 
-																<div class="clearfix my-1 p-5 border rounded">
-																	<label class="checkbox font-weight-bold float-left p-0 m-0">
-																		<input type="checkbox" name="radios1"/>
-																		<span></span>
-																		Default
-																	</label>
-																	<h3 class="font-size-h5 font-weight-bold float-right p-0 m-0">+100 pts</h3>
+															<div class="row pt-10 pb-5">
+																<div class="col-md-3">
+																	<button type="button" class="btn btn-secondary btn-lg btn-block font-weight-bold" data-dismiss="modal">Annuler</button>
 																</div>
-
-																<div class="clearfix my-1 p-5 border rounded">
-																	<label class="checkbox font-weight-bold float-left p-0 m-0">
-																		<input type="checkbox" name="radios1"/>
-																		<span></span>
-																		Default
-																	</label>
-																	<h3 class="font-size-h5 font-weight-bold float-right p-0 m-0">+100 pts</h3>
+																<div class="col-md-9">
+																	<button type="button" class="btn btn-primary btn-lg btn-block font-weight-bold">Ajouter au panier</button>
 																</div>
 															</div>
-														</div>
-
-														<div class="row pt-10 pb-5">
-															<div class="col-md-3">
-																<button type="button" class="btn btn-secondary btn-lg btn-block font-weight-bold" data-dismiss="modal">Annuler</button>
+														{% else %}
+															<div class="form-group">
+																<div class="alert alert-custom alert-default border" role="alert">
+																	<div class="alert-text text-center">Aucun Supplément.</div>
+																</div>
 															</div>
-															<div class="col-md-9">
-																<button type="button" class="btn btn-primary btn-lg btn-block font-weight-bold">Ajouter au panier</button>
-															</div>
-														</div>
+														{% endif %}
 													</div>
 												</div>
 											</div>
