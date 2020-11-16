@@ -27,6 +27,7 @@ class User implements UserInterface
         'Restaurant' => 'ROLE_RESTAURANT',
         'Administrateur' => 'ROLE_ADMINISTRATEUR',
     ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

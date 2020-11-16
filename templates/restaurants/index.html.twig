@@ -234,7 +234,7 @@
 							<div class="card card-custom gutter-b card-sticky" id="kt_page_sticky_card">
 								<div class="card-header">
 									<div class="card-title">
-										<h1 class="card-label h1 font-weight-bolder">Deal of the Day</h1>
+										<h1 class="card-label h1 font-weight-bolder">{{restaurant.nom}}</h1>
 									</div>
 
 									<div class="card-toolbar">
@@ -261,19 +261,24 @@
 								<div class="card-body">
 									<div class="card-toolbar">
 										<ul class="nav nav-light-primary nav-bold nav-pills">
-											<li class="nav-item">
-												<a class="nav-link active" data-toggle="tab" href="#kt_tab_pane_5_1">
-													<span class="nav-text">Week</span>
-												</a>
-											</li>
-
-											{% set var = [0, 1, 2, 3] %}
-											{% for item in var %}
-												<li class="nav-item">
-													<a class="nav-link" data-toggle="tab" href="#kt_tab_pane_5_2">
-														<span class="nav-text">Month</span>
-													</a>
-												</li>
+											{% set var = 0 %}
+											{% for item in menus %}
+												{% if item[1] %}
+													{% if var == 0 %}
+														<li class="nav-item">
+															<a class="nav-link active" data-toggle="tab" href="#menu_{{item[0].id}}">
+																<span class="nav-text">{{item[0].titre}}</span>
+															</a>
+														</li>
+														{% set var = 1 %}
+													{% else %}
+														<li class="nav-item">
+															<a class="nav-link" data-toggle="tab" href="#menu_{{item[0].id}}">
+																<span class="nav-text">{{item[0].titre}}</span>
+															</a>
+														</li>
+													{% endif %}
+												{% endif %}
 											{% endfor %}
 										</ul>
 									</div>
@@ -283,133 +288,125 @@
 						</div>
 					</div>
 
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="card card-custom gutter-b">
-								<div class="card-header">
-									<div class="card-title">
-										<h3 class="card-label">Sticky Form Actions</h3>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						{% set var = [0, 1, 2, 3] %}
-						{% for item in var %}
-							<div
-								class="col-lg-4">
-								<!--begin::Callout-->
-								<div class="card card-custom gutter-b">
-									<div class="card-body">
-										<div class="d-flex align-items-center justify-content-between p-4 flex-lg-wrap flex-xl-nowrap">
-											<div class="d-flex flex-column mr-5">
-												<a href="#" class="h4 text-dark mb-5">Customer Support</a>
-												<p class="text-dark-50">There are many variations of passages of Lorem Ipsum available.</p>
-											</div>
-											<div class="ml-6 flex-shrink-0">
-												<button type="button" class="btn font-weight-bolder btn-light-primary py-4 px-4" data-toggle="modal" data-target="#staticBackdrop_{{ item }}">
-													45 Dh
-												</button>
+					{% for item in menus %}
+						{% if item[1] %}
+							<div class="row" id="menu_{{item[0].id}}">
+								<div class="col-lg-12">
+									<div class="card card-custom gutter-b">
+										<div class="card-header">
+											<div class="card-title">
+												<h3 class="card-label">{{item[0].titre}}</h3>
 											</div>
 										</div>
 									</div>
 								</div>
-								<!--end::Callout-->
 
-								<div class="modal fade" id="staticBackdrop_{{ item }}" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop_{{ item }}" aria-hidden="true">
-									<div class="modal-dialog" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel"></h5>
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-													<i aria-hidden="true" class="ki ki-close"></i>
-												</button>
-											</div>
-
-											<div class="modal-body pt-5 pb-0">
-												<h3 class="font-size-h2 font-weight-bolder">Modal Title
-													{{ item }}</h3>
-												<p class="text-muted">Description description description description description description</p>
-
-												<div class="separator separator-dashed my-5"></div>
-
-												<h3 class="font-size-h3 font-weight-bolder mb-5">Les suppléments</h3>
-
-												<div class="form-group">
-													<label class="ml-5 h6 font-weight-bold">Default radios</label>
-													<div class="radio-list">
-														<label class="radio font-weight-bold my-1 p-4 border rounded">
-															<input type="radio" name="radios1"/>
-															<span></span>
-															Default
-														</label>
-
-														<label class="radio font-weight-bold my-1 p-4 border rounded">
-															<input type="radio" name="radios1"/>
-															<span></span>
-															Disabled
-														</label>
-
-														<label class="radio font-weight-bold my-1 p-4 border rounded">
-															<input type="radio" name="radios1"/>
-															<span></span>
-															Checked
-														</label>
+								{% for article in item[1] %}
+									<div
+										class="col-lg-4">
+										<!--begin::Callout-->
+										<div class="card card-custom gutter-b">
+											<div class="card-body">
+												<div class="d-flex align-items-center justify-content-between p-4 flex-lg-wrap flex-xl-nowrap">
+													<div class="d-flex flex-column mr-5">
+														<a href="#" class="h4 text-dark mb-5">{{article.article.titre}}</a>
+														<p class="text-dark-50">{{article.article.description}}</p>
 													</div>
-												</div>
-
-												<div class="form-group">
-													<label class="ml-5 h6 font-weight-bold">Default radios</label>
-													<div class="checkbox-list">
-														<label class="checkbox font-weight-bold my-1 p-4 border rounded">
-															<input type="checkbox" name="radios1"/>
-															<span></span>
-															Default
-														</label>
-
-														<label class="checkbox font-weight-bold my-1 p-4 border rounded">
-															<input type="checkbox" name="radios1"/>
-															<span></span>
-															Disabled
-														</label>
-
-														<label class="checkbox font-weight-bold my-1 p-4 border rounded">
-															<input type="checkbox" name="radios1"/>
-															<span></span>
-															Checked
-														</label>
+													<div class="ml-6 flex-shrink-0">
+														<button type="button" class="btn font-weight-bolder btn-light-primary py-4 px-4" data-toggle="modal" data-target="#staticBackdrop_{{ article.id }}">
+															{{item[2][article.article.id][0].prix.montant}}
+															{{item[2][article.article.id][0].prix.devise}}
+														</button>
 													</div>
 												</div>
 											</div>
+										</div>
+										<!--end::Callout-->
 
-											<div class="modal-footer">
-												<button type="button" class="btn btn-primary btn-lg btn-block font-weight-bold">Ajouter au panier</button>
+										<div class="modal fade" id="staticBackdrop_{{ article.id }}" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop_{{ article.id }}" aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header border-0">
+														<div>
+															<h3 class="font-size-h2 font-weight-bolder">{{article.article.titre}}</h3>
+															<p class="text-muted">{{article.article.description}}</p>
+														</div>
+													</div>
+
+													<div
+														class="modal-body py-0">
+														<h3 class="font-size-h3 font-weight-bolder">Les suppléments</h3>
+
+														<div class="form-group m-0 p-0">
+															<label class="ml-5 my-2 h6 font-weight-bold">Default Chechbox</label>
+															<div class="checkbox-list">
+																<div class="clearfix my-1 p-5 border rounded">
+																	<label class="checkbox font-weight-bold float-left p-0 m-0">
+																		<input type="checkbox" name="radios1"/>
+																		<span></span>
+																		Default
+																	</label>
+																	<h3 class="font-size-h5 font-weight-bold float-right p-0 m-0">+100 pts</h3>
+																</div>
+
+																<div class="clearfix my-1 p-5 border rounded">
+																	<label class="checkbox font-weight-bold float-left p-0 m-0">
+																		<input type="checkbox" name="radios1"/>
+																		<span></span>
+																		Default
+																	</label>
+																	<h3 class="font-size-h5 font-weight-bold float-right p-0 m-0">+100 pts</h3>
+																</div>
+
+																<div class="clearfix my-1 p-5 border rounded">
+																	<label class="checkbox font-weight-bold float-left p-0 m-0">
+																		<input type="checkbox" name="radios1"/>
+																		<span></span>
+																		Default
+																	</label>
+																	<h3 class="font-size-h5 font-weight-bold float-right p-0 m-0">+100 pts</h3>
+																</div>
+															</div>
+														</div>
+
+														<div class="row pt-10 pb-5">
+															<div class="col-md-3">
+																<button type="button" class="btn btn-secondary btn-lg btn-block font-weight-bold" data-dismiss="modal">Annuler</button>
+															</div>
+															<div class="col-md-9">
+																<button type="button" class="btn btn-primary btn-lg btn-block font-weight-bold">Ajouter au panier</button>
+															</div>
+														</div>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
+								{% endfor %}
 							</div>
-						{% endfor %}
-					</div>
+						{% endif %}
+					{% endfor %}
 				</div>
 
 				<div class="col-lg-3">
 					<div class="card card-custom gutter-b overlay">
 						<div class="card-body p-0">
 							<div class="overlay-wrapper">
-								<img src="{{ asset('media/stock-600x400/img-7.jpg') }}" alt="" class="w-100 rounded"/>
+								<img src="{{ asset(restaurant.photoUrl) }}" alt="" class="w-100 rounded"/>
 							</div>
 							<div class="overlay-layer m-5 rounded align-items-end justify-content-start">
 								<div class="d-flex flex-column align-items-start mb-5 ml-5">
-									<span class="font-size-h2 font-weight-bolder text-white text-hover-danger">Deal of the Day</span>
+									<span class="font-size-h2 font-weight-bolder text-white text-hover-danger">{{restaurant.nom}}</span>
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<div class="card card-custom gutter-b">
-						<div class="card-body">
-							<span class="text-muted font-weight-bold">Deal of the day deal of the day deal of the day deal of the day deal of the day.</span>
+					<div class="card card-custom gutter-b p-0">
+						<div class="card-body p-7">
+							<p class="text-muted font-weight-bold p-0 m-0">{{restaurant.slogan}}</p>
+							<div class="separator separator-solid separator-border-1 m-5"></div>
+							<p class="text-dark font-weight-bold p-0 m-0">{{restaurant.adresse}}</p>
 						</div>
 					</div>
 				</div>

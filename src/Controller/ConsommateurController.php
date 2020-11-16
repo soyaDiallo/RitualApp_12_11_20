@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Consommateur;
 use App\Form\ConsommateurType;
+use App\Repository\CategorieRestaurantRepository;
+use App\Repository\CategorieRestaurantRestaurantRepository;
 use App\Repository\ConsommateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,10 +23,22 @@ class ConsommateurController extends AbstractController
     /**
      * @Route("/", name="consommateur_index", methods={"GET"})
      */
-    public function index(ConsommateurRepository $consommateurRepository): Response
-    {
+    public function index(
+        ConsommateurRepository $consommateurRepository,
+        CategorieRestaurantRestaurantRepository $crr,
+        CategorieRestaurantRepository $cr
+    ): Response {
+        $categoriesRestaurants = $cr->findBy(["dateDesactivation" => null], ["titre" => "ASC"]);
+        $categorieRestaurantRestaurant = [];
+
+        foreach ($categoriesRestaurants as $key => $value) {
+            $categorieRestaurantRestaurant[$key][] = $value;
+            $categorieRestaurantRestaurant[$key][] = $crr->count(["dateSortie" => null, "categorieRestaurant" => $value->getId()]);
+        }
+
         return $this->render('consommateur/index.html.twig', [
             'consommateurs' => $consommateurRepository->findAll(),
+            'filtres' => $categorieRestaurantRestaurant,
         ]);
     }
 

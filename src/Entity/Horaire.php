@@ -2,12 +2,10 @@
 
 namespace App\Entity;
 
-
 use App\Repository\HoraireRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
 
 /**
  * @ORM\Entity(repositoryClass=HoraireRepository::class)
@@ -19,26 +17,21 @@ class Horaire
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=15)
-     * 
-     * 
      */
     private $jour;
 
     /**
      * @ORM\OneToMany(targetEntity=HoraireMenu::class, mappedBy="horaire")
-     * 
      */
     private $horaireMenus;
 
     /**
      * @ORM\OneToMany(targetEntity=HoraireRestaurant::class, mappedBy="horaire")
-     * 
      */
     private $horaireRestaurants;
 
@@ -46,7 +39,6 @@ class Horaire
     {
         $this->horaireMenus = new ArrayCollection();
         $this->horaireRestaurants = new ArrayCollection();
-
     }
 
     public function getId(): ?int

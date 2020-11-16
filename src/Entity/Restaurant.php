@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\Collection;
  */
 class Restaurant extends User
 {
-   /**
+    /**
      * @ORM\Id() ORM\@OneToOne(targetEntity="User")
      * ORM\JoinColumn(name="id", referencedColumnName="id")
      **/
@@ -69,8 +69,8 @@ class Restaurant extends User
         $this->commandes = new ArrayCollection();
         $this->horaireRestaurants = new ArrayCollection();
         $this->categorieRestaurantRestaurants = new ArrayCollection();
-
     }
+    
     public function getSlogan(): ?string
     {
         return $this->slogan;

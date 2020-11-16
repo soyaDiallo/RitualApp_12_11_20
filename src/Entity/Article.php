@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
@@ -38,21 +39,21 @@ class Article
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * 
      * 
      */
     private $photoUrl;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      * 
      * 
      */
     private $dateCreation;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      * 
      * 
      */
@@ -96,7 +97,6 @@ class Article
         $this->articleSupplements = new ArrayCollection();
         $this->articlePrixes = new ArrayCollection();
         $this->articleCategorieArticles = new ArrayCollection();
-
     }
 
     public function getId(): ?int
@@ -152,7 +152,7 @@ class Article
         return $this;
     }
 
-    
+
     public function getDateSuppression(): ?\DateTimeInterface
     {
         return $this->dateSuppression;
@@ -319,5 +319,4 @@ class Article
 
         return $this;
     }
-    
 }
