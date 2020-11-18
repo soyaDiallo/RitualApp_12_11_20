@@ -12,6 +12,7 @@ use App\Repository\RestaurantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -30,7 +31,8 @@ class RestaurantsController extends AbstractController
         ArticleSupplementRepository $articleSupplementRepository,
         ArticleSupplementPrixRepository $articleSupplementPrixRepository,
         GroupeSupplementRepository $groupeSupplementRepository,
-        int $id = 0
+        int $id = 0,
+        SessionInterface $session
     ): Response {
         $menus = $menuRepository->findBy(["restaurant" => $id]);
         $groupesSupplements = $groupeSupplementRepository->findAll();
@@ -56,9 +58,26 @@ class RestaurantsController extends AbstractController
             }
         }
 
+        $panier = [];
+        $total = 0;
+        if ($session->has("panier")) {
+            $panier = $session->get("panier");
+
+            foreach ($panier as $value) {
+                $total += intval($value["montant"]);
+                if ($value["supplements"]) {
+                    foreach ($value["supplements"] as $valueSupp) {
+                        $total += intval($valueSupp['montant']);
+                    }
+                }
+            }
+        }
+
         return $this->render('restaurants/index.html.twig', [
             'restaurant' => $restaurantRepository->find($id),
             'menus' => $menusArticles,
+            'panier' => $panier,
+            'total' => $total,
         ]);
     }
 }

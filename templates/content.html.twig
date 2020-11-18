@@ -839,184 +839,151 @@
 	</div>
 	<!--end::Scrolltop-->
 
-	<!--begin::Sticky Toolbar-->
-	<ul class="sticky-toolbar nav pl-2 pr-2 pt-3 pb-3 mt-4">
-		<!--begin::Item-->
-		<li class="nav-item" id="kt_demo_panel_toggle" data-toggle="tooltip" title="Ouvrir le panier" data-placement="right">
-			<a class="btn btn-sm btn-icon btn-bg-light btn-icon-danger btn-hover-danger" href="#" data-toggle="modal" data-target="#staticBackdrop">
-				<span class="svg-icon svg-icon-xl">
-					<!--begin::Svg Icon | path:/keen/theme/demo6/dist/assets/media/svg/icons/Shopping/Box2.svg-->
-					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-						<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-							<rect x="0" y="0" width="24" height="24"/>
-							<path d="M12,4.56204994 L7.76822128,9.6401844 C7.4146572,10.0644613 6.7840925,10.1217854 6.3598156,9.76822128 C5.9355387,9.4146572 5.87821464,8.7840925 6.23177872,8.3598156 L11.2317787,2.3598156 C11.6315738,1.88006147 12.3684262,1.88006147 12.7682213,2.3598156 L17.7682213,8.3598156 C18.1217854,8.7840925 18.0644613,9.4146572 17.6401844,9.76822128 C17.2159075,10.1217854 16.5853428,10.0644613 16.2317787,9.6401844 L12,4.56204994 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
-							<path d="M3.28077641,9 L20.7192236,9 C21.2715083,9 21.7192236,9.44771525 21.7192236,10 C21.7192236,10.0817618 21.7091962,10.163215 21.6893661,10.2425356 L19.5680983,18.7276069 C19.234223,20.0631079 18.0342737,21 16.6576708,21 L7.34232922,21 C5.96572629,21 4.76577697,20.0631079 4.43190172,18.7276069 L2.31063391,10.2425356 C2.17668518,9.70674072 2.50244587,9.16380623 3.03824078,9.0298575 C3.11756139,9.01002735 3.1990146,9 3.28077641,9 Z M12,12 C11.4477153,12 11,12.4477153 11,13 L11,17 C11,17.5522847 11.4477153,18 12,18 C12.5522847,18 13,17.5522847 13,17 L13,13 C13,12.4477153 12.5522847,12 12,12 Z M6.96472382,12.1362967 C6.43125772,12.2792385 6.11467523,12.8275755 6.25761704,13.3610416 L7.29289322,17.2247449 C7.43583503,17.758211 7.98417199,18.0747935 8.51763809,17.9318517 C9.05110419,17.7889098 9.36768668,17.2405729 9.22474487,16.7071068 L8.18946869,12.8434035 C8.04652688,12.3099374 7.49818992,11.9933549 6.96472382,12.1362967 Z M17.0352762,12.1362967 C16.5018101,11.9933549 15.9534731,12.3099374 15.8105313,12.8434035 L14.7752551,16.7071068 C14.6323133,17.2405729 14.9488958,17.7889098 15.4823619,17.9318517 C16.015828,18.0747935 16.564165,17.758211 16.7071068,17.2247449 L17.742383,13.3610416 C17.8853248,12.8275755 17.5687423,12.2792385 17.0352762,12.1362967 Z" fill="#000000"/>
-						</g>
-					</svg>
-					<!--end::Svg Icon-->
-				</span>
-			</a>
-		</li>
-		<!--end::Item-->
-	</ul>
-	<!--end::Sticky Toolbar-->
+	{% if panier %}
+		<!--begin::Sticky Toolbar-->
+		<ul class="sticky-toolbar nav pl-2 pr-2 pt-3 pb-3 mt-4">
+			<!--begin::Item-->
+			<li class="nav-item" id="kt_demo_panel_toggle" data-toggle="tooltip" title="Ouvrir le panier" data-placement="right">
+				<a class="btn btn-sm btn-icon btn-bg-light btn-icon-danger btn-hover-danger" href="#" data-toggle="modal" data-target="#staticBackdrop">
+					<span class="svg-icon svg-icon-xl">
+						<!--begin::Svg Icon | path:/keen/theme/demo6/dist/assets/media/svg/icons/Shopping/Box2.svg-->
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+								<rect x="0" y="0" width="24" height="24"/>
+								<path d="M12,4.56204994 L7.76822128,9.6401844 C7.4146572,10.0644613 6.7840925,10.1217854 6.3598156,9.76822128 C5.9355387,9.4146572 5.87821464,8.7840925 6.23177872,8.3598156 L11.2317787,2.3598156 C11.6315738,1.88006147 12.3684262,1.88006147 12.7682213,2.3598156 L17.7682213,8.3598156 C18.1217854,8.7840925 18.0644613,9.4146572 17.6401844,9.76822128 C17.2159075,10.1217854 16.5853428,10.0644613 16.2317787,9.6401844 L12,4.56204994 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+								<path d="M3.28077641,9 L20.7192236,9 C21.2715083,9 21.7192236,9.44771525 21.7192236,10 C21.7192236,10.0817618 21.7091962,10.163215 21.6893661,10.2425356 L19.5680983,18.7276069 C19.234223,20.0631079 18.0342737,21 16.6576708,21 L7.34232922,21 C5.96572629,21 4.76577697,20.0631079 4.43190172,18.7276069 L2.31063391,10.2425356 C2.17668518,9.70674072 2.50244587,9.16380623 3.03824078,9.0298575 C3.11756139,9.01002735 3.1990146,9 3.28077641,9 Z M12,12 C11.4477153,12 11,12.4477153 11,13 L11,17 C11,17.5522847 11.4477153,18 12,18 C12.5522847,18 13,17.5522847 13,17 L13,13 C13,12.4477153 12.5522847,12 12,12 Z M6.96472382,12.1362967 C6.43125772,12.2792385 6.11467523,12.8275755 6.25761704,13.3610416 L7.29289322,17.2247449 C7.43583503,17.758211 7.98417199,18.0747935 8.51763809,17.9318517 C9.05110419,17.7889098 9.36768668,17.2405729 9.22474487,16.7071068 L8.18946869,12.8434035 C8.04652688,12.3099374 7.49818992,11.9933549 6.96472382,12.1362967 Z M17.0352762,12.1362967 C16.5018101,11.9933549 15.9534731,12.3099374 15.8105313,12.8434035 L14.7752551,16.7071068 C14.6323133,17.2405729 14.9488958,17.7889098 15.4823619,17.9318517 C16.015828,18.0747935 16.564165,17.758211 16.7071068,17.2247449 L17.742383,13.3610416 C17.8853248,12.8275755 17.5687423,12.2792385 17.0352762,12.1362967 Z" fill="#000000"/>
+							</g>
+						</svg>
+						<!--end::Svg Icon-->
+					</span>
+				</a>
+			</li>
+			<!--end::Item-->
+		</ul>
+		<!--end::Sticky Toolbar-->
 
-	<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h3 class="modal-title font-weight-bolder font-size-h2" id="exampleModalLabel">
-						Panier
-						<span class="text-muted font-weight-bold font-size-h6">(Restaurant)</span>
-					</h3>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<i aria-hidden="true" class="ki ki-close"></i>
-					</button>
-				</div>
-
-				<div class="modal-body py-5">
-					<h3 class="font-size-h4 font-weight-bolder mb-4">Les articles</h3>
-					
-					<div class="clearfix p-4 mt-2 border rounded">
-						<div class="float-left">
-							<p class="font-size-h6 font-weight-bold p-0 m-0">Récompences</p>
-							<p class="font-weight-bolder p-0 m-0 text-dard-50">+10 $</p>
-						</div>
-						<a href="#" class="btn btn-icon btn-secondary float-right p-0 m-0">
-							<span class="svg-icon svg-icon-danger svg-icon-2x">
-								<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/keen/releases/2020-10-07-041015/theme/demo6/dist/../src/media/svg/icons/Home/Trash.svg-->
-								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-										<rect x="0" y="0" width="24" height="24"/>
-										<path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero"/>
-										<path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>
-									</g>
-								</svg>
-								<!--end::Svg Icon-->
-							</span>
-						</a>
+		<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title font-weight-bolder font-size-h2" id="exampleModalLabel">
+							Panier
+							<span class="text-muted font-weight-bold font-size-h6">(Restaurant)</span>
+						</h3>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<i aria-hidden="true" class="ki ki-close"></i>
+						</button>
 					</div>
 
-					<div class="clearfix p-2 mt-2 ml-10 border rounded">
-						<div class="float-left">
-							<p class="font-size-h6 font-weight-bold p-0 m-0">Récompences</p>
-							<p class="font-weight-bolder p-0 m-0 text-dard-50">+10 $</p>
+					<div class="modal-body py-5">
+						<h3 class="font-size-h4 font-weight-bolder mb-4">Les articles</h3>
+						
+						{% for item in panier %}
+							<div class="clearfix py-4 pl-4 pr-2 mt-2">
+								<div class="float-left">
+									<p class="font-size-h6 font-weight-bolder text-primary p-0 m-0">{{item['titre']}}</p>
+									<p class="font-weight-bolder p-0 m-0 text-dard-50">+{{item['montant']}} {{item['devise']}}</p>
+								</div>
+
+								{% if app.request.attributes.get('_route_params')['id'] is defined %}
+									<a href="{{ path('panier_remove_article_to_panier', {'article': item['id'], 'route': app.request.attributes.get('_route'), 'id': app.request.attributes.get('_route_params')['id']}) }}" class="btn btn-icon btn-secondary float-right p-0 m-0">
+										<span class="svg-icon svg-icon-danger svg-icon-2x">
+											<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/keen/releases/2020-10-07-041015/theme/demo6/dist/../src/media/svg/icons/Home/Trash.svg-->
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<rect x="0" y="0" width="24" height="24"/>
+													<path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero"/>
+													<path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>
+												</g>
+											</svg>
+											<!--end::Svg Icon-->
+										</span>
+									</a>
+								{% else %}
+									<a href="{{ path('panier_remove_article_to_panier', {'article': item['id'], 'route': app.request.attributes.get('_route')}) }}" class="btn btn-icon btn-secondary float-right p-0 m-0">
+										<span class="svg-icon svg-icon-danger svg-icon-2x">
+											<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/keen/releases/2020-10-07-041015/theme/demo6/dist/../src/media/svg/icons/Home/Trash.svg-->
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<rect x="0" y="0" width="24" height="24"/>
+													<path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero"/>
+													<path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>
+												</g>
+											</svg>
+											<!--end::Svg Icon-->
+										</span>
+									</a>						
+								{% endif %}
+							</div>
+
+							<div class="pl-2 ml-15 my-2 border-left border-primary">
+								{% for i in item["supplements"] %}
+									<div class="clearfix p-2 my-2">
+										<div class="float-left">
+											<p class="font-size-h6 font-weight-bold p-0 m-0">{{i['titre']}}</p>
+											<p class="font-weight-bolder p-0 m-0 text-dard-50">+{{i['montant']}} {{i['devise']}}</p>
+										</div>
+
+										{% if app.request.attributes.get('_route_params')['id'] is defined %}
+											<a href="{{ path('panier_remove_supplement_to_panier', {'article': item['id'], 'supplement': i['id'], 'route': app.request.attributes.get('_route'), 'id': app.request.attributes.get('_route_params')['id']}) }}" class="btn btn-icon btn-secondary float-right p-0 m-0">
+												<span class="svg-icon svg-icon-danger svg-icon-2x">
+													<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/keen/releases/2020-10-07-041015/theme/demo6/dist/../src/media/svg/icons/Home/Trash.svg-->
+													<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+															<rect x="0" y="0" width="24" height="24"/>
+															<path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero"/>
+															<path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>
+														</g>
+													</svg>
+													<!--end::Svg Icon-->
+												</span>
+											</a>
+										{% else %}
+											<a href="{{ path('panier_remove_supplement_to_panier', {'article': item['id'], 'supplement': i['id'], 'route': app.request.attributes.get('_route')}) }}" class="btn btn-icon btn-secondary float-right p-0 m-0">
+												<span class="svg-icon svg-icon-danger svg-icon-2x">
+													<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/keen/releases/2020-10-07-041015/theme/demo6/dist/../src/media/svg/icons/Home/Trash.svg-->
+													<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+															<rect x="0" y="0" width="24" height="24"/>
+															<path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero"/>
+															<path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>
+														</g>
+													</svg>
+													<!--end::Svg Icon-->
+												</span>
+											</a>
+										{% endif %}
+									</div>
+								{% endfor %}
+							</div>
+						{% endfor %}
+
+						<div class="p-6 my-5 border rounded">
+							<div class="clearfix py-1 m-0">
+								<p class="font-size-h6 font-weight-bold float-left p-0 m-0">Récompences:</p>
+								<h3 class="font-size-h5 font-weight-bold float-right p-0 m-0">+{{total}} pts</h3>
+							</div>
+							<div class="clearfix py-1 m-0">
+								<p class="font-size-h5 font-weight-bold float-left p-0 m-0">Total:</p>
+								<h3 class="font-size-h3 font-weight-bolder float-right p-0 m-0 text-primary">{{total}} Dhs</h3>
+							</div>
 						</div>
-						<a href="#" class="btn btn-icon btn-secondary float-right p-0 m-0">
-							<span class="svg-icon svg-icon-danger svg-icon-2x">
-								<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/keen/releases/2020-10-07-041015/theme/demo6/dist/../src/media/svg/icons/Home/Trash.svg-->
-								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-										<rect x="0" y="0" width="24" height="24"/>
-										<path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero"/>
-										<path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>
-									</g>
-								</svg>
-								<!--end::Svg Icon-->
-							</span>
-						</a>
-					</div>
 
-					<div class="clearfix p-2 mt-2 ml-10 border rounded">
-						<div class="float-left">
-							<p class="font-size-h6 font-weight-bold p-0 m-0">Récompences</p>
-							<p class="font-weight-bolder p-0 m-0 text-dard-50">+10 $</p>
-						</div>
-						<a href="#" class="btn btn-icon btn-secondary float-right p-0 m-0">
-							<span class="svg-icon svg-icon-danger svg-icon-2x">
-								<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/keen/releases/2020-10-07-041015/theme/demo6/dist/../src/media/svg/icons/Home/Trash.svg-->
-								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-										<rect x="0" y="0" width="24" height="24"/>
-										<path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero"/>
-										<path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>
-									</g>
-								</svg>
-								<!--end::Svg Icon-->
-							</span>
-						</a>
-					</div>
-
-					<div class="separator separator-dashed my-4"></div>
-
-					<div class="clearfix p-4 mt-2 border rounded">
-						<div class="float-left">
-							<p class="font-size-h6 font-weight-bold p-0 m-0">Récompences</p>
-							<p class="font-weight-bolder p-0 m-0 text-dard-50">+10 $</p>
-						</div>
-						<a href="#" class="btn btn-icon btn-secondary float-right p-0 m-0">
-							<span class="svg-icon svg-icon-danger svg-icon-2x">
-								<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/keen/releases/2020-10-07-041015/theme/demo6/dist/../src/media/svg/icons/Home/Trash.svg-->
-								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-										<rect x="0" y="0" width="24" height="24"/>
-										<path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero"/>
-										<path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>
-									</g>
-								</svg>
-								<!--end::Svg Icon-->
-							</span>
-						</a>
-					</div>
-
-					<div class="clearfix p-2 mt-2 ml-10 border rounded">
-						<div class="float-left">
-							<p class="font-size-h6 font-weight-bold p-0 m-0">Récompences</p>
-							<p class="font-weight-bolder p-0 m-0 text-dard-50">+10 $</p>
-						</div>
-						<a href="#" class="btn btn-icon btn-secondary float-right p-0 m-0">
-							<span class="svg-icon svg-icon-danger svg-icon-2x">
-								<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/keen/releases/2020-10-07-041015/theme/demo6/dist/../src/media/svg/icons/Home/Trash.svg-->
-								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-										<rect x="0" y="0" width="24" height="24"/>
-										<path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero"/>
-										<path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>
-									</g>
-								</svg>
-								<!--end::Svg Icon-->
-							</span>
-						</a>
-					</div>
-
-					<div class="clearfix p-2 mt-2 ml-10 border rounded">
-						<div class="float-left">
-							<p class="font-size-h6 font-weight-bold p-0 m-0">Récompences</p>
-							<p class="font-weight-bolder p-0 m-0 text-dard-50">+10 $</p>
-						</div>
-						<a href="#" class="btn btn-icon btn-secondary float-right p-0 m-0">
-							<span class="svg-icon svg-icon-danger svg-icon-2x">
-								<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/keen/releases/2020-10-07-041015/theme/demo6/dist/../src/media/svg/icons/Home/Trash.svg-->
-								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-										<rect x="0" y="0" width="24" height="24"/>
-										<path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero"/>
-										<path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>
-									</g>
-								</svg>
-								<!--end::Svg Icon-->
-							</span>
-						</a>
-					</div>
-
-					<div class="separator separator-dashed my-8"></div>
-
-					<div class="p-6 mb-2 mt-0 border rounded">
-						<div class="clearfix py-1 m-0">
-							<p class="font-size-h6 font-weight-bold float-left p-0 m-0">Récompences:</p>
-							<h3 class="font-size-h5 font-weight-bold float-right p-0 m-0">+100 pts</h3>
-						</div>
-						<div class="clearfix py-1 m-0">
-							<p class="font-size-h5 font-weight-bold float-left p-0 m-0">Total:</p>
-							<h3 class="font-size-h3 font-weight-bolder float-right p-0 m-0 text-primary">45 Dh</h3>
+						<div class="row">
+							<div class="col-md-3 py-1">
+								{% if app.request.attributes.get('_route_params')['id'] is defined %}
+									<a href="{{ path('panier_remove', {'route': app.request.attributes.get('_route'), 'id': app.request.attributes.get('_route_params')['id']}) }}" class="btn btn-secondary btn-lg btn-block font-weight-bold py-4 text-danger">Vider</a>
+								{% else %}
+									<a href="{{ path('panier_remove', {'route': app.request.attributes.get('_route')}) }}" class="btn btn-secondary btn-lg btn-block font-weight-bold py-4 text-danger">Vider</a>								
+								{% endif %}
+							</div>
+							<div class="col-md-9 py-1">
+								<button type="button" class="btn btn-primary btn-lg btn-block font-weight-bold font-size-h6 py-4">Ajouter au panier</button>
+							</div>
 						</div>
 					</div>
-				</div>
-
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary btn-lg btn-block font-weight-bold font-size-h6 py-4">Commander</button>
 				</div>
 			</div>
 		</div>
-	</div>
+	{% endif %}
 {% endblock %}

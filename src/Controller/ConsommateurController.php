@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * @Route("/consommateur")
@@ -26,7 +27,8 @@ class ConsommateurController extends AbstractController
     public function index(
         ConsommateurRepository $consommateurRepository,
         CategorieRestaurantRestaurantRepository $crr,
-        CategorieRestaurantRepository $cr
+        CategorieRestaurantRepository $cr,
+        SessionInterface $session
     ): Response {
         $categoriesRestaurants = $cr->findBy(["dateDesactivation" => null], ["titre" => "ASC"]);
         $categorieRestaurantRestaurant = [];
@@ -36,9 +38,26 @@ class ConsommateurController extends AbstractController
             $categorieRestaurantRestaurant[$key][] = $crr->count(["dateSortie" => null, "categorieRestaurant" => $value->getId()]);
         }
 
+        $panier = [];
+        $total = 0;
+        if ($session->has("panier")) {
+            $panier = $session->get("panier");
+
+            foreach ($panier as $value) {
+                $total += intval($value["montant"]);
+                if ($value["supplements"]) {
+                    foreach ($value["supplements"] as $valueSupp) {
+                        $total += intval($valueSupp['montant']);
+                    }
+                }
+            }
+        }
+
         return $this->render('consommateur/index.html.twig', [
             'consommateurs' => $consommateurRepository->findAll(),
             'filtres' => $categorieRestaurantRestaurant,
+            'panier' => $panier,
+            'total' => $total,
         ]);
     }
 

@@ -303,8 +303,7 @@
 								</div>
 
 								{% for article in item[1] %}
-									<div
-										class="col-lg-4">
+									<div class="col-lg-4">
 										<!--begin::Callout-->
 										<div class="card card-custom gutter-b">
 											<div class="card-body">
@@ -338,49 +337,75 @@
 														{% if item|length == 4 %}
 															<h3 class="font-size-h3 font-weight-bolder">Les suppléments</h3>
 
-															{% for groupe in item[3][article.article.id] %}
-																<div class="form-group m-0 p-0">
-																	<label class="ml-5 my-2 h6 font-weight-bold">{{groupe[0].titre}}</label>
-																	{% if groupe[0].type == "Radio" %}
-																		<div class="radio-list">
-																			{% for g in groupe[1] %}
-																				<div class="clearfix my-1 p-5 border rounded">
-																					<label class="radio font-weight-bold float-left p-0 m-0">
-																						<input type="radio" name="radios_{{groupe[0].id}}"/>
-																						<span></span>
-																						{{g.supplement.titre}}
-																					</label>
-																					<h3 class="font-size-h6 font-weight-bold float-right p-0 m-0">+{{groupe[2][g.id][0].prix.montant}}
-																						{{groupe[2][g.id][0].prix.devise}}</h3>
-																				</div>
-																			{% endfor %}
-																		</div>
-																	{% else %}
-																		<div class="checkbox-list">
-																			{% for g in groupe[1] %}
-																				<div class="clearfix my-1 p-5 border rounded">
-																					<label class="checkbox font-weight-bold float-left p-0 m-0">
-																						<input type="checkbox" name="checkbox_{{groupe[0].id}}"/>
-																						<span></span>
-																						{{g.supplement.titre}}
-																					</label>
-																					<h3 class="font-size-h6 font-weight-bold float-right p-0 m-0">+{{groupe[2][g.id][0].prix.montant}}
-																						{{groupe[2][g.id][0].prix.devise}}</h3>
-																				</div>
-																			{% endfor %}
-																		</div>
-																	{% endif %}
-																</div>
-															{% endfor %}
+															<form name="form" method="POST" action="{{ path('panier_add_article_and_supplement_to_panier', {'id': restaurant.id}) }}">
+																{% for groupe in item[3][article.article.id] %}
+																	<div class="form-group m-0 p-0">
+																		<label class="ml-5 my-2 h6 font-weight-bold">{{groupe[0].titre}}</label>
+																		{% if groupe[0].type == "Radio" %}
+																			<div class="radio-list">
+																				{% for g in groupe[1] %}
+																					<div class="clearfix my-1 p-5 border rounded">
+																						<label class="radio font-weight-bold float-left p-0 m-0">
+																							{# <input type="radio" name="radios_{{groupe[0].id}}" value="{{g.supplement.id}}"/> #}
+																							<input type="radio" name="radios_{{groupe[0].id}}_{{article.article.id}}" value="{{g.supplement.id}}"/>
+																							<span></span>
+																							{{g.supplement.titre}}
+																						</label>
+																						<h3 class="font-size-h6 font-weight-bold float-right p-0 m-0">+{{groupe[2][g.id][0].prix.montant}}
+																							{{groupe[2][g.id][0].prix.devise}}</h3>
+																					</div>
+																					
+																					<input type="hidden" name="articles[{{article.article.id}}][1][{{g.supplement.id}}][id]" value="{{g.supplement.id}}"/>
+																					<input type="hidden" name="articles[{{article.article.id}}][1][{{g.supplement.id}}][titre]" value="{{g.supplement.titre}}"/>
+																					<input type="hidden" name="articles[{{article.article.id}}][1][{{g.supplement.id}}][montant]" value="{{groupe[2][g.id][0].prix.montant}}"/>
+																					<input type="hidden" name="articles[{{article.article.id}}][1][{{g.supplement.id}}][devise]" value="{{groupe[2][g.id][0].prix.devise}}"/>
+																				{% endfor %}
+																				
+																				<input type="hidden" name="articles[{{article.article.id}}][0][id]" value="{{article.article.id}}"/>
+																				<input type="hidden" name="articles[{{article.article.id}}][0][titre]" value="{{article.article.titre}}"/>
+																				<input type="hidden" name="articles[{{article.article.id}}][0][description]" value="{{article.article.description}}"/>
+																				<input type="hidden" name="articles[{{article.article.id}}][0][montant]" value="{{item[2][article.article.id][0].prix.montant}}"/>
+																				<input type="hidden" name="articles[{{article.article.id}}][0][devise]" value="{{item[2][article.article.id][0].prix.devise}}"/>
+																			</div>
+																		{% else %}
+																			<div class="checkbox-list">
+																				{% for g in groupe[1] %}
+																					<div class="clearfix my-1 p-5 border rounded">
+																						<label class="checkbox font-weight-bold float-left p-0 m-0">
+																							{# <input type="checkbox" name="checkbox_{{groupe[0].id}}_{{article.article.id}}" value="{{g.supplement.id}}"/> #}
+																							<input type="checkbox" name="checkbox_{{groupe[0].id}}[{{article.article.id}}][{{g.supplement.id}}]" value="{{g.supplement.id}}"/>
+																							<span></span>
+																							{{g.supplement.titre}}
+																						</label>
+																						<h3 class="font-size-h6 font-weight-bold float-right p-0 m-0">+{{groupe[2][g.id][0].prix.montant}}
+																							{{groupe[2][g.id][0].prix.devise}}</h3>
+																					</div>
 
-															<div class="row pt-10 pb-5">
-																<div class="col-md-3">
-																	<button type="button" class="btn btn-secondary btn-lg btn-block font-weight-bold" data-dismiss="modal">Annuler</button>
+																					<input type="hidden" name="articles[{{article.article.id}}][1][{{g.supplement.id}}][id]" value="{{g.supplement.id}}"/>
+																					<input type="hidden" name="articles[{{article.article.id}}][1][{{g.supplement.id}}][titre]" value="{{g.supplement.titre}}"/>
+																					<input type="hidden" name="articles[{{article.article.id}}][1][{{g.supplement.id}}][montant]" value="{{groupe[2][g.id][0].prix.montant}}"/>
+																					<input type="hidden" name="articles[{{article.article.id}}][1][{{g.supplement.id}}][devise]" value="{{groupe[2][g.id][0].prix.devise}}"/>
+																				{% endfor %}
+
+																				<input type="hidden" name="articles[{{article.article.id}}][0][id]" value="{{article.article.id}}"/>
+																				<input type="hidden" name="articles[{{article.article.id}}][0][titre]" value="{{article.article.titre}}"/>
+																				<input type="hidden" name="articles[{{article.article.id}}][0][description]" value="{{article.article.description}}"/>
+																				<input type="hidden" name="articles[{{article.article.id}}][0][montant]" value="{{item[2][article.article.id][0].prix.montant}}"/>
+																				<input type="hidden" name="articles[{{article.article.id}}][0][devise]" value="{{item[2][article.article.id][0].prix.devise}}"/>
+																			</div>
+																		{% endif %}
+																	</div>
+																{% endfor %}
+
+																<div class="row pt-10 pb-5">
+																	<div class="col-md-3 py-1">
+																		<button type="button" class="btn btn-secondary btn-lg btn-block font-weight-bold" data-dismiss="modal">Annuler</button>
+																	</div>
+																	<div class="col-md-9 py-1">
+																		<button type="submit" class="btn btn-primary btn-lg btn-block font-weight-bold">Ajouter au panier</button>
+																	</div>
 																</div>
-																<div class="col-md-9">
-																	<button type="button" class="btn btn-primary btn-lg btn-block font-weight-bold">Ajouter au panier</button>
-																</div>
-															</div>
+															<form>
 														{% else %}
 															<div class="form-group">
 																<div class="alert alert-custom alert-default border" role="alert">
