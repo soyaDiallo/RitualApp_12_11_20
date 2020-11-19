@@ -14,6 +14,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Geocoder\Query\GeocodeQuery;
+use Geocoder\Query\ReverseQuery;
+
+
 
 /**
  * @Route("/consommateur")
@@ -59,6 +64,30 @@ class ConsommateurController extends AbstractController
             'panier' => $panier,
             'total' => $total,
         ]);
+    }
+     /**
+     * @Route("/position", name="position", methods={"GET","POST"})
+     */
+    public function position(Request $request,SessionInterface $session,TranslatorInterface $translator): Response
+    {
+        $session->set("lat", $request->request->get('lat'));
+        $session->set("lng", $request->request->get('lng'));
+        $httpClient = new \Http\Adapter\Guzzle6\Client();
+        //You must provide an API key
+        $provider = \Geocoder\Provider\Here\Here::createUsingApiKey($httpClient, 'BPpc_Vm8HKVv5bn_8bD4ow6ia-QncSvZDmjPOu2iW58');
+        $geocoder = new \Geocoder\StatefulGeocoder($provider,'fr');
+        $geocoder->setLocale('fr');
+        $result = $geocoder->reverseQuery(ReverseQuery::fromCoordinates($request->request->get('lat'), $request->request->get('lng')));
+        $translated = $translator->trans($result->first()->getSubLocality(),[],
+        'messages',
+        'fr_FR');
+        dd($result,$translated); // Londres
+        $formatter = new \Geocoder\Formatter\StringFormatter();
+        $result = $geocoder->reverseQuery(ReverseQuery::fromCoordinates($request->request->get('lat'), $request->request->get('lng')));
+        //$result = $geocoder->reverse(33.552658699999995, -7.661327999999999);
+        dd($result);
+        return $this->redirectToRoute('consommateur_index');
+        
     }
 
     /**

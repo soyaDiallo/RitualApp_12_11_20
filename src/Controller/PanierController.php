@@ -3,7 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Commande;
+use App\Entity\ArticleCommande;
+use App\Entity\CommandeSupplement;
 use App\Repository\RestaurantRepository;
+use App\Repository\ArticleRepository;
+use App\Repository\SupplementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,6 +33,7 @@ class PanierController extends AbstractController
             $panier = $session->get("panier");
         }
 
+        //dd($request);
         foreach ($request->request->all() as $key => $value) {
             if (explode("_", $key)[0] == "radios") {
                 if (!isset($panier[explode("_", $key)[2]])) {
@@ -47,6 +53,7 @@ class PanierController extends AbstractController
             }
         }
         $session->set("panier", $panier);
+        $session->set("resto", $id);
         return $this->redirectToRoute("restaurants_index", ["id" => $id]);
     }
 
@@ -115,7 +122,46 @@ class PanierController extends AbstractController
      * @Route("/valider/panier", name="panier_valid", methods={"GET", "POST"})
      */
     public function ValidPanier(
-        RestaurantRepository $restaurantRepository
+        RestaurantRepository $restaurantRepository,
+        SessionInterface $session,
+        ArticleRepository $articleRepository,
+        SupplementRepository $supplementRepository
     ) {
+        //dd($session->get("panier"), $session->get("resto"),$session->get("lat"));
+        $entityManager = $this->getDoctrine()->getManager();
+        $consommateur= $this->getUser();
+        $resto= $restaurantRepository->find($session->get("resto"));
+        $panier=$session->get("panier");
+        $ac=[];
+        $cs=[];
+        $commande = new Commande();
+        $commande->setLongitude($session->get("lng"));
+        $commande->setLatitude($session->get("lat"));
+        $commande->setDateCreation(new \DateTime());
+        $commande->setDateLancement(new \DateTime());
+        $commande->setConsommateur($consommateur);
+        $commande->setRestaurant($resto);
+        $entityManager->persist($commande);
+        $entityManager->flush();
+
+        foreach ($panier as $key => $a) {
+            $ac[$key] = new ArticleCommande();
+            $ac[$key]->setQuantite(1);
+            $ac[$key]->setCommande($commande);
+            $ac[$key]->setArticle($articleRepository->find($a['id']));
+            $entityManager->persist($ac[$key]);
+            $entityManager->flush();
+            foreach ($a['supplements'] as $key => $s) {
+                $cs[$key] = new CommandeSupplement();
+                $cs[$key]->setQuantite(1);
+                $cs[$key]->setCommande($commande);
+                $cs[$key]->setSupplement($supplementRepository->find($s['id']));
+                $entityManager->persist($cs[$key]);
+                $entityManager->flush();
+            }
+        }
+        $session->remove("panier");
+        return $this->redirectToRoute('consommateur_index');
+
     }
 }
