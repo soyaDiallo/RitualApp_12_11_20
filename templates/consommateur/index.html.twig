@@ -231,6 +231,7 @@
 
 {% block javascripts %}
 	<script src="{{ asset('js/pages/features/miscellaneous/sticky-panelse8da.js?v=2.0.3') }}"></script>
+
 	<script>
 		function getLocation() {
 			if (navigator.geolocation) {
@@ -248,14 +249,18 @@
 		function selected() {
 			if (document.getElementById("ville").value == "Casablanca") {
 				document.getElementById("zone").innerHTML = 
-					'<option value="Passe">Data</option>'+
-					'<option value="Passe">Data</option>'+
-					'<option value="Passe">Data</option>'+
-					'<option value="Passe">Data</option>'+
-					'<option value="Passe">Data</option>'+
-					'<option value="Passe">Data</option>'+
-					'<option value="Passe">Data</option>'+
-					'<option value="Passe">Data</option>';
+					'<option value="Ain diab">Ain diab</option>'+
+					'<option value="Anfa">Anfa</option>'+
+					'<option value="Hassani" selected>Hassani</option>'+
+					'<option value="Bourgogne">Bourgogne</option>'+
+					'<option value="Californie">Californie</option>'+
+					'<option value="Gironde">Gironde</option>'+
+					'<option value="Sidi Maarouf">Sidi Maarouf</option>'+
+					'<option value="Bernoussi">Bernoussi</option>'+
+					'<option value="Belvédère">Belvédère</option>'+
+					'<option value="Oulfa">Oulfa</option>'+
+					'<option value="Sidi MouNassimmen">Sidi MouNassimmen</option>'+
+					'<option value="Maarif">Maarif</option>';
 			} else {
 				document.getElementById("zone").innerHTML = 
 					'<option value="Aucune" selected disabled>Sélectionner</option>';
@@ -274,7 +279,7 @@
 	<!--begin::Toolbar-->
 	<div class="d-flex align-items-center flex-wrap">
 		<!--begin::Daterange-->
-		<div data-toggle="tooltip" title="Select dashboard daterange" data-placement="top">
+		<div data-toggle="tooltip" title="Choisisser un lieu" data-placement="top">
 			<button type="button" class="btn btn-light-primary font-weight-bold px-5 mr-3 my-1" data-toggle="modal" data-target="#modalPosition">
 				<span
 					class="opacity-80 svg-icon svg-icon-2x">
@@ -288,9 +293,8 @@
 					<!--end::Svg Icon-->
 				</span>
 
-
 				{% if titre is defined %}
-					<span class="font-weight-bolder">{{titre}}</span>
+					<span class="font-weight-bolder">{{titre|capitalize}}</span>
 				{% else %}
 					<span class="font-weight-bolder">Casablanca</span>
 				{% endif %}
@@ -394,7 +398,7 @@
 											<label class="radio p-4 my-1 font-weight-bold border rounded">
 												<input type="radio" name="radios" value="{{item[0].id}}" onchange="onRadios(this.value)"/>
 												<span></span>
-												{{item[0].titre}}
+												{{item[0].titre|capitalize}}
 											</label>
 										{% endif %}
 									{% endfor %}
@@ -405,16 +409,48 @@
 				</div>
 
 				<div class="col-lg-9">
+					{% for message in app.flashes('panier_valid') %}
+						<div class="alert alert-custom alert-light-primary fade show mb-7" role="alert">
+							<div class="alert-icon">
+								<i class="flaticon-information"></i>
+							</div>
+							<div class="alert-text">{{ message }}</div>
+							<div class="alert-close">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">
+										<i class="ki ki-close"></i>
+									</span>
+								</button>
+							</div>
+						</div>
+					{% endfor %}
+
+					{% for message in app.flashes('panier_error') %}
+						<div class="alert alert-custom alert-light-danger fade show mb-7" role="alert">
+							<div class="alert-icon">
+								<i class="flaticon-information"></i>
+							</div>
+							<div class="alert-text">{{ message }}</div>
+							<div class="alert-close">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">
+										<i class="ki ki-close"></i>
+									</span>
+								</button>
+							</div>
+						</div>
+					{% endfor %}
+
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="card card-custom gutter-b">
 								<div class="card-header">
 									<div class="card-title">
 										{% if titre is defined %}
-											<h3 class="card-label">Restaurants de la zone <span class="font-weight-bolder"><u>{{titre}}</u></span></h3>
+											<h3 class="card-label">Restaurants de la zone <span class="font-weight-bolder"><u>{{titre|capitalize}}</u></span></h3>
 										{% else %}
 											{% if categorie is defined %}
-												<h3 class="card-label">{{categorie.titre}}</h3>
+												<h3 class="card-label">Type Cuisine: <span class="font-weight-bolder"><u>{{categorie.titre|capitalize}}</u></span></h3>
 											{% else %}
 												<h3 class="card-label">Les restaurants</h3>
 											{% endif %}
@@ -435,11 +471,11 @@
 										<div class="overlay-layer m-5 rounded align-items-end justify-content-start">
 											<div class="d-flex flex-column align-items-start mb-5 ml-5">
 												{% if item.nom|length > 20 %}
-													<a href="{{ path('restaurants_index', {'id': item.id}) }}" class="font-size-h2 font-weight-bold text-white text-hover-primary" title="{{item.nom}}">{{item.nom|slice(0, 20)}}...</a>
+													<a href="{{ path('restaurants_index', {'id': item.id}) }}" class="font-size-h2 font-weight-bold text-white text-hover-primary" title="{{item.nom}}">{{item.nom|slice(0, 20)|capitalize}}...</a>
 												{% else %}
-													<a href="{{ path('restaurants_index', {'id': item.id}) }}" class="font-size-h2 font-weight-bold text-white text-hover-primary" title="{{item.nom}}">{{item.nom}}</a>
+													<a href="{{ path('restaurants_index', {'id': item.id}) }}" class="font-size-h2 font-weight-bold text-white text-hover-primary" title="{{item.nom}}">{{item.nom|capitalize}}</a>
 												{% endif %}
-												<p class="font-size-lg font-weight-bold text-dark-25">{{item.slogan}}</p>
+												<p class="font-size-lg font-weight-bold text-dark-25">{{item.slogan|capitalize}}</p>
 												<span class="label label-primary label-xl label-inline font-weight-bold">4.5</span>
 											</div>
 										</div>

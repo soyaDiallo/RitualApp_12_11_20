@@ -3,8 +3,7 @@
 {% block body %}
 	<!--begin::Main-->
 	<!--begin::Header Mobile-->
-	<div
-		id="kt_header_mobile" class="header-mobile header-mobile-fixed"> <!--begin::Logo-->
+	<div id="kt_header_mobile" class="header-mobile header-mobile-fixed"> <!--begin::Logo-->
 		<a href="index.html">
 			<img alt="Logo" src="https://preview.keenthemes.com/keen/theme/demo6/dist/assets/media/logos/logo-5.svg" class="max-h-30px"/>
 		</a>
@@ -44,8 +43,7 @@
 	</div>
 	<!--end::Header Mobile-->
 
-	<div
-		class="d-flex flex-column flex-root">
+	<div class="d-flex flex-column flex-root">
 		<!--begin::Page-->
 		<div
 			class="d-flex flex-row flex-column-fluid page">
@@ -411,7 +409,7 @@
 							<!--end::Dropdown Menu-->
 						</div>
 						<div class="text-center flex-grow-1">
-							<div class="text-dark-75 font-weight-bold font-size-h5">{{app.user.nom}}</div>
+							<div class="text-dark-75 font-weight-bold font-size-h5">{{app.user.nom|capitalize}}</div>
 							<div>
 								<span class="label label-dot label-success"></span>
 								<span class="font-weight-bold text-muted font-size-sm">En ligne</span>
@@ -445,7 +443,7 @@
 								</a>
 							</div>
 							<div>
-								<button type="button" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Send</button>
+								<button type="button" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Envoyer</button>
 							</div>
 						</div>
 						<!--begin::Compose-->
@@ -477,8 +475,7 @@
 
 	{% if panier %}
 		<!--begin::Sticky Toolbar-->
-		<ul
-			class="sticky-toolbar nav pl-2 pr-2 pt-3 pb-3 mt-4">
+		<ul class="sticky-toolbar nav pl-2 pr-2 pt-3 pb-3 mt-4">
 			<!--begin::Item-->
 			<li class="nav-item" id="kt_demo_panel_toggle" data-toggle="tooltip" title="Ouvrir le panier" data-placement="right">
 				<a class="btn btn-sm btn-icon btn-bg-light btn-icon-danger btn-hover-danger" href="#" data-toggle="modal" data-target="#staticBackdrop">
@@ -500,122 +497,122 @@
 		</ul>
 		<!--end::Sticky Toolbar-->
 		<!--form name="form" method="POST" action="{{ path('panier_valid') }}"-->
-			<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h3 class="modal-title font-weight-bolder font-size-h2" id="exampleModalLabel">
-								Panier
-								<span class="text-muted font-weight-bold font-size-h6">(Restaurant)</span>
-							</h3>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<i aria-hidden="true" class="ki ki-close"></i>
-							</button>
-						</div>
+		<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title font-weight-bolder font-size-h2" id="exampleModalLabel">
+							Panier
+						</h3>
+						<button type="button" class="close mr-3" data-dismiss="modal" aria-label="Close">
+							<i aria-hidden="true" class="ki ki-close"></i>
+						</button>
+					</div>
 
-						<div class="modal-body py-5">
-							<h3 class="font-size-h4 font-weight-bolder mb-4">Les articles</h3>
+					<div class="modal-body py-5">
+						<h3 class="font-size-h4 font-weight-bolder mb-4">Les articles</h3>
 
-							{% for item in panier %}
-								<div class="clearfix py-4 pl-4 pr-2 mt-2">
-									<div class="float-left">
-										<p class="font-size-h6 font-weight-bolder text-primary p-0 m-0">{{item['titre']}}</p>
-										<p class="font-weight-bolder p-0 m-0 text-dard-50">+{{item['montant']}}
-											{{item['devise']}}</p>
-									</div>
-
-									{% if app.request.attributes.get('_route_params')['id'] is defined %}
-										<a href="{{ path('panier_remove_article_to_panier', {'article': item['id'], 'route': app.request.attributes.get('_route'), 'id': app.request.attributes.get('_route_params')['id']}) }}" class="btn btn-icon btn-secondary float-right p-0 m-0">
-											<span
-												class="svg-icon svg-icon-danger svg-icon-2x">
-												<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/keen/releases/2020-10-07-041015/theme/demo6/dist/../src/media/svg/icons/Home/Trash.svg-->
-												<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewbox="0 0 24 24" version="1.1">
-													<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-														<rect x="0" y="0" width="24" height="24"/>
-														<path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero"/>
-														<path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>
-													</g>
-												</svg>
-												<!--end::Svg Icon-->
-											</span>
-										</a>
-									{% else %}
-										<a href="{{ path('panier_remove_article_to_panier', {'article': item['id'], 'route': app.request.attributes.get('_route')}) }}" class="btn btn-icon btn-secondary float-right p-0 m-0">
-											<span
-												class="svg-icon svg-icon-danger svg-icon-2x">
-												<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/keen/releases/2020-10-07-041015/theme/demo6/dist/../src/media/svg/icons/Home/Trash.svg-->
-												<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewbox="0 0 24 24" version="1.1">
-													<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-														<rect x="0" y="0" width="24" height="24"/>
-														<path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero"/>
-														<path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>
-													</g>
-												</svg>
-												<!--end::Svg Icon-->
-											</span>
-										</a>
-									{% endif %}
+						{% for item in panier %}
+							<div class="clearfix py-4 pl-4 pr-2 mt-2">
+								<div class="float-left">
+									<p class="font-size-h6 font-weight-bolder text-primary p-0 m-0">{{item['titre']|capitalize}}</p>
+									<p class="font-weight-bolder p-0 m-0 text-dard-50">+{{item['montant']|capitalize}}
+										{{item['devise']|capitalize}}</p>
 								</div>
 
-								<div class="pl-2 ml-15 my-2 border-left border-primary">
-									{% for i in item["supplements"] %}
-										<div class="clearfix p-2 my-2">
-											<div class="float-left">
-												<p class="font-size-h6 font-weight-bold p-0 m-0">{{i['titre']}}</p>
-												<p class="font-weight-bolder p-0 m-0 text-dard-50">+{{i['montant']}}
-													{{i['devise']}}</p>
-											</div>
-
-											{% if app.request.attributes.get('_route_params')['id'] is defined %}
-												<a href="{{ path('panier_remove_supplement_to_panier', {'article': item['id'], 'supplement': i['id'], 'route': app.request.attributes.get('_route'), 'id': app.request.attributes.get('_route_params')['id']}) }}" class="btn btn-icon btn-secondary float-right p-0 m-0">
-													<span
-														class="svg-icon svg-icon-danger svg-icon-2x">
-														<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/keen/releases/2020-10-07-041015/theme/demo6/dist/../src/media/svg/icons/Home/Trash.svg-->
-														<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewbox="0 0 24 24" version="1.1">
-															<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-																<rect x="0" y="0" width="24" height="24"/>
-																<path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero"/>
-																<path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>
-															</g>
-														</svg>
-														<!--end::Svg Icon-->
-													</span>
-												</a>
-											{% else %}
-												<a href="{{ path('panier_remove_supplement_to_panier', {'article': item['id'], 'supplement': i['id'], 'route': app.request.attributes.get('_route')}) }}" class="btn btn-icon btn-secondary float-right p-0 m-0">
-													<span
-														class="svg-icon svg-icon-danger svg-icon-2x">
-														<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/keen/releases/2020-10-07-041015/theme/demo6/dist/../src/media/svg/icons/Home/Trash.svg-->
-														<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewbox="0 0 24 24" version="1.1">
-															<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-																<rect x="0" y="0" width="24" height="24"/>
-																<path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero"/>
-																<path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>
-															</g>
-														</svg>
-														<!--end::Svg Icon-->
-													</span>
-												</a>
-											{% endif %}
-										</div>
-									{% endfor %}
-								</div>
-							{% endfor %}
-
-							<div class="p-6 my-5 border rounded">
-								<div class="clearfix py-1 m-0">
-									<p class="font-size-h6 font-weight-bold float-left p-0 m-0">Récompences:</p>
-									<h3 class="font-size-h5 font-weight-bold float-right p-0 m-0">+{{total}}
-										pts</h3>
-								</div>
-								<div class="clearfix py-1 m-0">
-									<p class="font-size-h5 font-weight-bold float-left p-0 m-0">Total:</p>
-									<h3 class="font-size-h3 font-weight-bolder float-right p-0 m-0 text-primary">{{total}}
-										Dhs</h3>
-								</div>
+								{% if app.request.attributes.get('_route_params')['id'] is defined %}
+									<a href="{{ path('panier_remove_article_to_panier', {'article': item['id'], 'route': app.request.attributes.get('_route'), 'id': app.request.attributes.get('_route_params')['id']}) }}" class="btn btn-icon btn-secondary float-right p-0 m-0">
+										<span
+											class="svg-icon svg-icon-danger svg-icon-2x">
+											<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/keen/releases/2020-10-07-041015/theme/demo6/dist/../src/media/svg/icons/Home/Trash.svg-->
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewbox="0 0 24 24" version="1.1">
+												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<rect x="0" y="0" width="24" height="24"/>
+													<path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero"/>
+													<path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>
+												</g>
+											</svg>
+											<!--end::Svg Icon-->
+										</span>
+									</a>
+								{% else %}
+									<a href="{{ path('panier_remove_article_to_panier', {'article': item['id'], 'route': app.request.attributes.get('_route')}) }}" class="btn btn-icon btn-secondary float-right p-0 m-0">
+										<span
+											class="svg-icon svg-icon-danger svg-icon-2x">
+											<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/keen/releases/2020-10-07-041015/theme/demo6/dist/../src/media/svg/icons/Home/Trash.svg-->
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewbox="0 0 24 24" version="1.1">
+												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<rect x="0" y="0" width="24" height="24"/>
+													<path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero"/>
+													<path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>
+												</g>
+											</svg>
+											<!--end::Svg Icon-->
+										</span>
+									</a>
+								{% endif %}
 							</div>
 
-							<div class="row">
+							<div class="pl-2 ml-15 my-2 border-left border-primary">
+								{% for i in item["supplements"] %}
+									<div class="clearfix p-2 my-2">
+										<div class="float-left">
+											<p class="font-size-h6 font-weight-bold p-0 m-0">{{i['titre']|capitalize}}</p>
+											<p class="font-weight-bolder p-0 m-0 text-dard-50">+{{i['montant']|capitalize}}
+												{{i['devise']|capitalize}}</p>
+										</div>
+
+										{% if app.request.attributes.get('_route_params')['id'] is defined %}
+											<a href="{{ path('panier_remove_supplement_to_panier', {'article': item['id'], 'supplement': i['id'], 'route': app.request.attributes.get('_route'), 'id': app.request.attributes.get('_route_params')['id']}) }}" class="btn btn-icon btn-secondary float-right p-0 m-0">
+												<span
+													class="svg-icon svg-icon-danger svg-icon-2x">
+													<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/keen/releases/2020-10-07-041015/theme/demo6/dist/../src/media/svg/icons/Home/Trash.svg-->
+													<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewbox="0 0 24 24" version="1.1">
+														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+															<rect x="0" y="0" width="24" height="24"/>
+															<path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero"/>
+															<path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>
+														</g>
+													</svg>
+													<!--end::Svg Icon-->
+												</span>
+											</a>
+										{% else %}
+											<a href="{{ path('panier_remove_supplement_to_panier', {'article': item['id'], 'supplement': i['id'], 'route': app.request.attributes.get('_route')}) }}" class="btn btn-icon btn-secondary float-right p-0 m-0">
+												<span
+													class="svg-icon svg-icon-danger svg-icon-2x">
+													<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/keen/releases/2020-10-07-041015/theme/demo6/dist/../src/media/svg/icons/Home/Trash.svg-->
+													<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewbox="0 0 24 24" version="1.1">
+														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+															<rect x="0" y="0" width="24" height="24"/>
+															<path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero"/>
+															<path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>
+														</g>
+													</svg>
+													<!--end::Svg Icon-->
+												</span>
+											</a>
+										{% endif %}
+									</div>
+								{% endfor %}
+							</div>
+						{% endfor %}
+
+						<div class="p-6 my-5 border rounded">
+							<div class="clearfix py-1 m-0">
+								<p class="font-size-h6 font-weight-bold float-left p-0 m-0">Récompences:</p>
+								<h3 class="font-size-h5 font-weight-bold float-right p-0 m-0">+{{total}}
+									pts</h3>
+							</div>
+							<div class="clearfix py-1 m-0">
+								<p class="font-size-h5 font-weight-bold float-left p-0 m-0">Total:</p>
+								<h3 class="font-size-h3 font-weight-bolder float-right p-0 m-0 text-primary">{{total}}
+									Dhs</h3>
+							</div>
+						</div>
+
+						<div class="row">
+							{# {% if valid is defined %} #}
 								<div class="col-md-3 py-1">
 									{% if app.request.attributes.get('_route_params')['id'] is defined %}
 										<a href="{{ path('panier_remove', {'route': app.request.attributes.get('_route'), 'id': app.request.attributes.get('_route_params')['id']}) }}" class="btn btn-secondary btn-lg btn-block font-weight-bold py-4 text-danger">Vider</a>
@@ -624,13 +621,22 @@
 									{% endif %}
 								</div>
 								<div class="col-md-9 py-1">
-									<a href="{{ path('panier_valid') }}" class="btn btn-primary btn-lg btn-block font-weight-bold font-size-h6 py-4">Ajouter au panier</a>
+									<a href="{{ path('panier_valid') }}" class="btn btn-primary btn-lg btn-block font-weight-bold font-size-h6 py-4">Valider le panier</a>
 								</div>
-							</div>
+							{# {% else %}
+								<div class="col-md-12 py-1">
+									{% if app.request.attributes.get('_route_params')['id'] is defined %}
+										<a href="{{ path('panier_remove', {'route': app.request.attributes.get('_route'), 'id': app.request.attributes.get('_route_params')['id']}) }}" class="btn btn-danger btn-lg btn-block font-weight-bold py-4 text-white">Annuler la commande</a>
+									{% else %}
+										<a href="{{ path('panier_remove', {'route': app.request.attributes.get('_route')}) }}" class="btn btn-danger btn-lg btn-block font-weight-bold py-4 text-white">Annuler la commande</a>
+									{% endif %}
+								</div>
+							{% endif %} #}
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 		<!--form-->
 	{% endif %}
 {% endblock %}

@@ -56,12 +56,22 @@ class ConsommateurController extends AbstractController
             }
         }
 
+        // if ($session->has("panier_valid")) {
         return $this->render('consommateur/index.html.twig', [
             'restaurants' => $restaurantRepository->findBy([], ["nom" => "ASC"]),
             'filtres' => $categorieRestaurantRestaurant,
             'panier' => $panier,
             'total' => $total,
+            // 'valid' => true,
         ]);
+        // } else {
+        //     return $this->render('consommateur/index.html.twig', [
+        //         'restaurants' => $restaurantRepository->findBy([], ["nom" => "ASC"]),
+        //         'filtres' => $categorieRestaurantRestaurant,
+        //         'panier' => $panier,
+        //         'total' => $total,
+        //     ]);
+        // }
     }
 
     /**

@@ -134,36 +134,43 @@ class PanierController extends AbstractController
         $panier = $session->get("panier");
         $ac = [];
         $cs = [];
-        
-        $commande = new Commande();
-        $commande->setLongitude($session->get("lng"));
-        $commande->setLatitude($session->get("lat"));
-        $commande->setDateCreation(new \DateTime());
-        $commande->setDateLancement(new \DateTime());
-        $commande->setConsommateur($consommateur);
-        $commande->setRestaurant($resto);
-        $entityManager->persist($commande);
-        $entityManager->flush();
 
-        foreach ($panier as $key => $a) {
-            $ac[$key] = new ArticleCommande();
-            $ac[$key]->setQuantite(1);
-            $ac[$key]->setCommande($commande);
-            $ac[$key]->setArticle($articleRepository->find($a['id']));
-            $entityManager->persist($ac[$key]);
+        if (!$session->has("lng") || !$session->has("lat")) {
+            $this->addFlash("panier_error", "Veuiller commencer par choisir un lieu.");
+            return $this->redirectToRoute('consommateur_index');
+        } else {
+            $commande = new Commande();
+            $commande->setLongitude($session->get("lng"));
+            $commande->setLatitude($session->get("lat"));
+            $commande->setDateCreation(new \DateTime());
+            $commande->setDateLancement(new \DateTime());
+            $commande->setConsommateur($consommateur);
+            $commande->setRestaurant($resto);
+            $entityManager->persist($commande);
             $entityManager->flush();
-            
-            foreach ($a['supplements'] as $key => $s) {
-                $cs[$key] = new CommandeSupplement();
-                $cs[$key]->setQuantite(1);
-                $cs[$key]->setCommande($commande);
-                $cs[$key]->setSupplement($supplementRepository->find($s['id']));
-                $entityManager->persist($cs[$key]);
-                $entityManager->flush();
-            }
-        }
 
-        $session->remove("panier");
-        return $this->redirectToRoute('consommateur_index');
+            foreach ($panier as $key => $a) {
+                $ac[$key] = new ArticleCommande();
+                $ac[$key]->setQuantite(1);
+                $ac[$key]->setCommande($commande);
+                $ac[$key]->setArticle($articleRepository->find($a['id']));
+                $entityManager->persist($ac[$key]);
+                $entityManager->flush();
+
+                foreach ($a['supplements'] as $key => $s) {
+                    $cs[$key] = new CommandeSupplement();
+                    $cs[$key]->setQuantite(1);
+                    $cs[$key]->setCommande($commande);
+                    $cs[$key]->setSupplement($supplementRepository->find($s['id']));
+                    $entityManager->persist($cs[$key]);
+                    $entityManager->flush();
+                }
+            }
+
+            $session->remove("panier");
+            $this->addFlash("panier_valid", "La commande a été lancer.");
+            
+            return $this->redirectToRoute('consommateur_index');
+        }
     }
 }

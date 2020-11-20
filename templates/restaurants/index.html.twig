@@ -1,7 +1,7 @@
 {% extends 'content.html.twig' %}
 
 {% block title %}
-	{{restaurant.nom}}
+	{{restaurant.nom|capitalize}}
 {% endblock %}
 
 {% block content_header %}
@@ -237,7 +237,7 @@
 							<div class="card card-custom gutter-b card-sticky" id="kt_page_sticky_card">
 								<div class="card-header">
 									<div class="card-title">
-										<h1 class="card-label h1 font-weight-bolder">{{restaurant.nom}}</h1>
+										<h1 class="card-label h1 font-weight-bolder">{{restaurant.nom|capitalize}}</h1>
 									</div>
 
 									<div class="card-toolbar">
@@ -270,14 +270,14 @@
 													{% if var == 0 %}
 														<li class="nav-item">
 															<a class="nav-link active" href="#menu_{{item[0].id}}">
-																<span class="nav-text">{{item[0].titre}}</span>
+																<span class="nav-text">{{item[0].titre|capitalize}}</span>
 															</a>
 														</li>
 														{% set var = 1 %}
 													{% else %}
 														<li class="nav-item">
 															<a class="nav-link" href="#menu_{{item[0].id}}">
-																<span class="nav-text">{{item[0].titre}}</span>
+																<span class="nav-text">{{item[0].titre|capitalize}}</span>
 															</a>
 														</li>
 													{% endif %}
@@ -298,7 +298,7 @@
 									<div class="card card-custom gutter-b">
 										<div class="card-header">
 											<div class="card-title">
-												<h3 class="card-label">{{item[0].titre}}</h3>
+												<h3 class="card-label">{{item[0].titre|capitalize}}</h3>
 											</div>
 										</div>
 									</div>
@@ -311,13 +311,13 @@
 											<div class="card-body">
 												<div class="d-flex align-items-center justify-content-between p-4 flex-lg-wrap flex-xl-nowrap">
 													<div class="d-flex flex-column mr-5">
-														<a href="#" class="h4 text-dark mb-5">{{article.article.titre}}</a>
-														<p class="text-dark-50">{{article.article.description}}</p>
+														<a href="#" class="h4 text-dark mb-5">{{article.article.titre|capitalize}}</a>
+														<p class="text-dark-50">{{article.article.description|capitalize}}</p>
 													</div>
 													<div class="ml-6 flex-shrink-0">
 														<button type="button" class="btn font-weight-bolder btn-light-primary py-4 px-4" data-toggle="modal" data-target="#staticBackdrop_{{ article.id }}">
-															{{item[2][article.article.id][0].prix.montant}}
-															{{item[2][article.article.id][0].prix.devise}}
+															{{item[2][article.article.id][0].prix.montant|capitalize}}
+															{{item[2][article.article.id][0].prix.devise|capitalize}}
 														</button>
 													</div>
 												</div>
@@ -330,8 +330,8 @@
 												<div class="modal-content">
 													<div class="modal-header border-0">
 														<div>
-															<h3 class="font-size-h2 font-weight-bolder">{{article.article.titre}}</h3>
-															<p class="text-muted">{{article.article.description}}</p>
+															<h3 class="font-size-h2 font-weight-bolder">{{article.article.titre|capitalize}}</h3>
+															<p class="text-muted">{{article.article.description|capitalize}}</p>
 														</div>
 													</div>
 
@@ -342,7 +342,7 @@
 															<form name="form" method="POST" action="{{ path('panier_add_article_and_supplement_to_panier', {'id': restaurant.id}) }}">
 																{% for groupe in item[3][article.article.id] %}
 																	<div class="form-group m-0 p-0">
-																		<label class="ml-5 my-2 h6 font-weight-bold">{{groupe[0].titre}}</label>
+																		<label class="ml-5 my-2 h6 font-weight-bold">{{groupe[0].titre|capitalize}}</label>
 																		{% if groupe[0].type == "Radio" %}
 																			<div class="radio-list">
 																				{% for g in groupe[1] %}
@@ -351,10 +351,10 @@
 																							{# <input type="radio" name="radios_{{groupe[0].id}}" value="{{g.supplement.id}}"/> #}
 																							<input type="radio" name="radios_{{groupe[0].id}}_{{article.article.id}}" value="{{g.supplement.id}}"/>
 																							<span></span>
-																							{{g.supplement.titre}}
+																							{{g.supplement.titre|capitalize}}
 																						</label>
-																						<h3 class="font-size-h6 font-weight-bold float-right p-0 m-0">+{{groupe[2][g.id][0].prix.montant}}
-																							{{groupe[2][g.id][0].prix.devise}}</h3>
+																						<h3 class="font-size-h6 font-weight-bold float-right p-0 m-0">+{{groupe[2][g.id][0].prix.montant|capitalize}}
+																							{{groupe[2][g.id][0].prix.devise|capitalize}}</h3>
 																					</div>
 																					
 																					<input type="hidden" name="articles[{{article.article.id}}][1][{{g.supplement.id}}][id]" value="{{g.supplement.id}}"/>
@@ -377,10 +377,10 @@
 																							{# <input type="checkbox" name="checkbox_{{groupe[0].id}}_{{article.article.id}}" value="{{g.supplement.id}}"/> #}
 																							<input type="checkbox" name="checkbox_{{groupe[0].id}}[{{article.article.id}}][{{g.supplement.id}}]" value="{{g.supplement.id}}"/>
 																							<span></span>
-																							{{g.supplement.titre}}
+																							{{g.supplement.titre|capitalize}}
 																						</label>
-																						<h3 class="font-size-h6 font-weight-bold float-right p-0 m-0">+{{groupe[2][g.id][0].prix.montant}}
-																							{{groupe[2][g.id][0].prix.devise}}</h3>
+																						<h3 class="font-size-h6 font-weight-bold float-right p-0 m-0">+{{groupe[2][g.id][0].prix.montant|capitalize}}
+																							{{groupe[2][g.id][0].prix.devise|capitalize}}</h3>
 																					</div>
 
 																					<input type="hidden" name="articles[{{article.article.id}}][1][{{g.supplement.id}}][id]" value="{{g.supplement.id}}"/>
@@ -434,7 +434,7 @@
 							</div>
 							<div class="overlay-layer m-5 rounded align-items-end justify-content-start">
 								<div class="d-flex flex-column align-items-start mb-5 ml-5">
-									<span class="font-size-h2 font-weight-bolder text-white text-hover-danger">{{restaurant.nom}}</span>
+									<span class="font-size-h2 font-weight-bolder text-white text-hover-danger">{{restaurant.nom|capitalize}}</span>
 								</div>
 							</div>
 						</div>
@@ -442,9 +442,9 @@
 
 					<div class="card card-custom gutter-b p-0">
 						<div class="card-body p-7">
-							<p class="text-dark font-weight-bold p-0 m-0">{{restaurant.slogan}}</p>
+							<p class="text-dark font-weight-bold p-0 m-0">{{restaurant.slogan|capitalize}}</p>
 							<div class="separator separator-solid separator-border-1 m-5"></div>
-							<p class="text-dark-50 font-weight-bold p-0 m-0">{{restaurant.adresse}}</p>
+							<p class="text-dark-50 font-weight-bold p-0 m-0">{{restaurant.adresse|capitalize}}</p>
 						</div>
 					</div>
 				</div>
