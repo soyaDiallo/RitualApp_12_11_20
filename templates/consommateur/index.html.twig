@@ -7,7 +7,7 @@
 	<!--begin::Header Nav-->
 	<ul class="menu-nav">
 		<li class="menu-item menu-item-active" aria-haspopup="true">
-			<a href="#" class="menu-link">
+			<a href="{{ path('consommateur_index') }}" class="menu-link">
 				<span class="menu-text">Accueil</span>
 			</a>
 		</li>
@@ -140,6 +140,7 @@
 				</div>
 			</div>
 			<!--end::Toggle-->
+
 			<!--begin::Dropdown-->
 			<div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg">
 				<div
@@ -228,10 +229,50 @@
 	<!--end::Page Heading-->
 {% endblock %}
 
+{% block javascripts %}
+	<script src="{{ asset('js/pages/features/miscellaneous/sticky-panelse8da.js?v=2.0.3') }}"></script>
+	<script>
+		function getLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(showPosition);
+			} else {
+				x.innerHTML = "Geolocation is not supported by this browser.";
+			}
+		}
+		
+		function showPosition(position) {
+			document.getElementById("lat").value = position.coords.latitude;
+			document.getElementById("lng").value = position.coords.longitude;
+		}
+
+		function selected() {
+			if (document.getElementById("ville").value == "Casablanca") {
+				document.getElementById("zone").innerHTML = 
+					'<option value="Passe">Data</option>'+
+					'<option value="Passe">Data</option>'+
+					'<option value="Passe">Data</option>'+
+					'<option value="Passe">Data</option>'+
+					'<option value="Passe">Data</option>'+
+					'<option value="Passe">Data</option>'+
+					'<option value="Passe">Data</option>'+
+					'<option value="Passe">Data</option>';
+			} else {
+				document.getElementById("zone").innerHTML = 
+					'<option value="Aucune" selected disabled>Sélectionner</option>';
+			}
+		}
+	</script>
+
+	<script>
+		function onRadios(value) {
+			location.href = 'http://localhost:8000/consommateur/restaurants/categorie/' + value;
+		}
+	</script>
+{% endblock %}
+
 {% block content_subheader_right %}
 	<!--begin::Toolbar-->
-	<div
-		class="d-flex align-items-center flex-wrap">
+	<div class="d-flex align-items-center flex-wrap">
 		<!--begin::Daterange-->
 		<div data-toggle="tooltip" title="Select dashboard daterange" data-placement="top">
 			<button type="button" class="btn btn-light-primary font-weight-bold px-5 mr-3 my-1" data-toggle="modal" data-target="#modalPosition">
@@ -247,7 +288,12 @@
 					<!--end::Svg Icon-->
 				</span>
 
-				<span class="font-weight-bolder">Aug 16</span>
+
+				{% if titre is defined %}
+					<span class="font-weight-bolder">{{titre}}</span>
+				{% else %}
+					<span class="font-weight-bolder">Casablanca</span>
+				{% endif %}
 			</button>
 		</div>
 		<!--end::Daterange-->
@@ -255,114 +301,81 @@
 	<!--end::Toolbar-->
 
 	<!--begin::Modal-->
-	<div class="modal fade" onclick="getLocation()" id="modalPosition" tabindex="-1" role="dialog" aria-labelledby="modalPosition" aria-hidden="true">
-		<script>
-			function getLocation() {
-			if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(showPosition);
-			} else {
-			x.innerHTML = "Geolocation is not supported by this browser.";
-			}
-			}
-			function showPosition(position) {
-			document.getElementById("lat").value = position.coords.latitude;
-			document.getElementById("lng").value = position.coords.longitude;
-			}
-		</script>
-		<form name="form" method="POST" action="{{ path('position') }}">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-					<div class="modal-body p-2">
+	<div class="modal fade" id="modalPosition" tabindex="-1" role="dialog" aria-labelledby="modalPosition" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title font-weight-bolder font-size-h3">
+						Choisir un lieu
+					</h3>
+					<button type="button" onclick="getLocation()" class="btn btn-icon btn-light-primary">
+						<span class="opacity-80 svg-icon svg-icon-2x">
+							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewbox="0 0 24 24" version="1.1">
+								<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+									<rect x="0" y="0" width="24" height="24"/>
+									<path d="M9.82829464,16.6565893 C7.02541569,15.7427556 5,13.1079084 5,10 C5,6.13400675 8.13400675,3 12,3 C15.8659932,3 19,6.13400675 19,10 C19,13.1079084 16.9745843,15.7427556 14.1717054,16.6565893 L12,21 L9.82829464,16.6565893 Z M12,12 C13.1045695,12 14,11.1045695 14,10 C14,8.8954305 13.1045695,8 12,8 C10.8954305,8 10,8.8954305 10,10 C10,11.1045695 10.8954305,12 12,12 Z" fill="#000000"/>
+								</g>
+							</svg>
+						</span>
+					</button>
+				</div>
 
-						<div class="form-group p-0 m-0">
-							<select class="form-control form-control-lg" id="kt_select2_4">
-								<option label="Label"></option>
-								<optgroup label="Alaskan/Hawaiian Time Zone">
-									<option value="AK">Alaska</option>
-									<option value="HI">Hawaii</option>
-								</optgroup>
-								<optgroup label="Pacific Time Zone">
-									<option value="CA">California</option>
-									<option value="NV">Nevada</option>
-									<option value="OR">Oregon</option>
-									<option value="WA">Washington</option>
-								</optgroup>
-								<optgroup label="Mountain Time Zone">
-									<option value="AZ">Arizona</option>
-									<option value="CO">Colorado</option>
-									<option value="ID">Idaho</option>
-									<option value="MT">Montana</option>
-									<option value="NE">Nebraska</option>
-									<option value="NM">New Mexico</option>
-									<option value="ND">North Dakota</option>
-									<option value="UT">Utah</option>
-									<option value="WY">Wyoming</option>
-								</optgroup>
-								<optgroup label="Central Time Zone">
-									<option value="AL">Alabama</option>
-									<option value="AR">Arkansas</option>
-									<option value="IL">Illinois</option>
-									<option value="IA">Iowa</option>
-									<option value="KS">Kansas</option>
-									<option value="KY">Kentucky</option>
-									<option value="LA">Louisiana</option>
-									<option value="MN">Minnesota</option>
-									<option value="MS">Mississippi</option>
-									<option value="MO">Missouri</option>
-									<option value="OK">Oklahoma</option>
-									<option value="SD">South Dakota</option>
-									<option value="TX">Texas</option>
-									<option value="TN">Tennessee</option>
-									<option value="WI">Wisconsin</option>
-								</optgroup>
-								<optgroup label="Eastern Time Zone">
-									<option value="CT">Connecticut</option>
-									<option value="DE">Delaware</option>
-									<option value="FL">Florida</option>
-									<option value="GA">Georgia</option>
-									<option value="IN">Indiana</option>
-									<option value="ME">Maine</option>
-									<option value="MD">Maryland</option>
-									<option value="MA">Massachusetts</option>
-									<option value="MI">Michigan</option>
-									<option value="NH">New Hampshire</option>
-									<option value="NJ">New Jersey</option>
-									<option value="NY">New York</option>
-									<option value="NC">North Carolina</option>
-									<option value="OH">Ohio</option>
-									<option value="PA">Pennsylvania</option>
-									<option value="RI">Rhode Island</option>
-									<option value="SC">South Carolina</option>
-									<option value="VT">Vermont</option>
-									<option value="VA">Virginia</option>
-									<option value="WV">West Virginia</option>
+				<form name="form" method="POST" action="{{ path('position') }}">
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="font-size-h6 font-weight-bold">Ville</label>
+							<select onchange="selected()" id="ville" name="ville" class="form-control form-control-solid form-control-lg">
+								<option value="#" selected readonly>Sélectionner une ville</option>
+								<optgroup label="Maroc">
+									<option value="Agadir">Agadir</option>
+									<option value="Casablanca">Casablanca</option>
+									<option value="Eljadida">ElJadida</option>
+									<option value="Fès">Fès</option>
+									<option value="Kenitra">Kenitra</option>
+									<option value="Marrakech">Marrakech</option>
+									<option value="Meknès">Meknès</option>
+									<option value="Mohammedia">Mohammedia</option>
+									<option value="Oujda">Oujda</option>
+									<option value="Rabat">Rabat</option>
 								</optgroup>
 							</select>
 						</div>
+
+						<div class="form-group">
+							<label class="font-size-h6 font-weight-bold">Zone</label>
+							<select id="zone" name="zone" class="form-control form-control-solid form-control-lg">
+								<option value="#" selected readonly>Sélectionner une zone</option>
+							</select>
+						</div>
+
+						<div class="separator separator-solid separator-border-1 m-5"></div>
+
+						<div class="form-group">
+							<label class="font-size-h6 font-weight-bold">Latitude</label>
+							<input readonly class="form-control form-control-solid form-control-lg" type="text" id="lat" name="lat">
+						</div>
+						<div class="form-group">
+							<label class="font-size-h6 font-weight-bold">Longitude</label>
+							<input readonly class="form-control form-control-solid form-control-lg" type="text" id="lng" name="lng">
+						</div>
+
+						<button type="submit" class="btn btn-primary btn-block font-weight-bold py-3 font-size-h6 mt-10">
+							Utiliser cette position
+						</button>
 					</div>
-					<input type="text" id="lat" name="lat" value="lat">
-					<input type="text" id="lng" name="lng" value="lng">
-					<button type="submit" class="btn btn-light-primary font-weight-bolder px-5 mr-3 my-1">
-						<span class="opacity-60 font-weight-bold mr-2">Position</span>
-					</button>
-				</div>
+				</form>
 			</div>
-		</form>
+		</div>
 	</div>
 	<!--end::Modal-->
 {% endblock %}
 
-{% block javascripts %}
-	<script src="{{ asset('js/pages/features/miscellaneous/sticky-panelse8da.js?v=2.0.3') }}"></script>
-	<script src="{{ asset('js/pages/features/forms/widgets/select2e8da.js?v=2.0.3') }}"></script>
-{% endblock %}
-
 {% block content_body %}
 	<!--begin::Entry-->
-	<div
-		class="d-flex flex-column-fluid">
+	<div class="d-flex flex-column-fluid">
 		<!--begin::Container-->
 		<div class="container-fluid">
+			<!--begin::Row-->
 			<div class="row" data-sticky-container="">
 				<div class="col-lg-3">
 					<div class="card card-custom gutter-b sticky" data-sticky="true" data-margin-top="140px" data-sticky-for="1023" data-sticky-class="sticky">
@@ -371,6 +384,7 @@
 								<h3 class="card-label">Les Filtres</h3>
 							</div>
 						</div>
+
 						<div class="card-body p-8">
 							<div class="form-group p-0 m-0">
 								<label class="h6 font-weight-bold pb-3">Type de cuisine</label>
@@ -378,7 +392,7 @@
 									{% for item in filtres %}
 										{% if item[1] > 0 %}
 											<label class="radio p-4 my-1 font-weight-bold border rounded">
-												<input type="radio" name="radios" value="{{item[0].id}}"/>
+												<input type="radio" name="radios" value="{{item[0].id}}" onchange="onRadios(this.value)"/>
 												<span></span>
 												{{item[0].titre}}
 											</label>
@@ -396,26 +410,37 @@
 							<div class="card card-custom gutter-b">
 								<div class="card-header">
 									<div class="card-title">
-										<h3 class="card-label">Sticky Form Actions</h3>
+										{% if titre is defined %}
+											<h3 class="card-label">Restaurants de la zone <span class="font-weight-bolder"><u>{{titre}}</u></span></h3>
+										{% else %}
+											{% if categorie is defined %}
+												<h3 class="card-label">{{categorie.titre}}</h3>
+											{% else %}
+												<h3 class="card-label">Les restaurants</h3>
+											{% endif %}
+										{% endif %}
 									</div>
 								</div>
 							</div>
 						</div>
 
-						{% set var = [0, 1, 2, 3] %}
-						{% for item in var %}
-							<div
-								class="col-lg-4">
+						{% for item in restaurants %}
+							<div class="col-lg-4">
 								<!--begin::Card-->
 								<div class="card card-custom gutter-b overlay">
 									<div class="card-body p-0">
 										<div class="overlay-wrapper">
-											<img src="{{ asset('media/stock-600x400/img-7.jpg') }}" alt="" class="w-100 rounded"/>
+											<img src="{{ asset(item.photoUrl) }}" alt="" class="w-100 rounded"/>
 										</div>
 										<div class="overlay-layer m-5 rounded align-items-end justify-content-start">
 											<div class="d-flex flex-column align-items-start mb-5 ml-5">
-												<a href="{{ path('restaurants_index', {'id': 1}) }}" class="font-size-h4 font-weight-bolder text-white text-hover-primary">Deal of the Day</a>
-												<span class="label label-success label-xl label-inline mb-1 font-weight-bolder">4.5</span>
+												{% if item.nom|length > 20 %}
+													<a href="{{ path('restaurants_index', {'id': item.id}) }}" class="font-size-h2 font-weight-bold text-white text-hover-primary" title="{{item.nom}}">{{item.nom|slice(0, 20)}}...</a>
+												{% else %}
+													<a href="{{ path('restaurants_index', {'id': item.id}) }}" class="font-size-h2 font-weight-bold text-white text-hover-primary" title="{{item.nom}}">{{item.nom}}</a>
+												{% endif %}
+												<p class="font-size-lg font-weight-bold text-dark-25">{{item.slogan}}</p>
+												<span class="label label-primary label-xl label-inline font-weight-bold">4.5</span>
 											</div>
 										</div>
 									</div>
@@ -425,7 +450,7 @@
 						{% endfor %}
 					</div>
 
-					<div class="row">
+					{# <div class="row">
 						<div class="col-lg-12">
 							<div class="card card-custom gutter-b">
 								<div class="card-header">
@@ -457,11 +482,12 @@
 								<!--end::Card-->
 							</div>
 						{% endfor %}
-					</div>
+					</div> #}
 				</div>
 			</div>
-			<!--end::Container-->
+			<!--end::Row-->
 		</div>
-		<!--end::Entry-->
+		<!--end::Container-->
 	</div>
+	<!--end::Entry-->
 {% endblock %}

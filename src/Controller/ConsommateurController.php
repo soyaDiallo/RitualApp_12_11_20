@@ -7,6 +7,7 @@ use App\Form\ConsommateurType;
 use App\Repository\CategorieRestaurantRepository;
 use App\Repository\CategorieRestaurantRestaurantRepository;
 use App\Repository\ConsommateurRepository;
+use App\Repository\RestaurantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,8 +19,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Geocoder\Query\GeocodeQuery;
 use Geocoder\Query\ReverseQuery;
 
-
-
 /**
  * @Route("/consommateur")
  * @Security("is_granted('ROLE_CONSOMMATEUR')")
@@ -30,10 +29,50 @@ class ConsommateurController extends AbstractController
      * @Route("/", name="consommateur_index", methods={"GET"})
      */
     public function index(
-        ConsommateurRepository $consommateurRepository,
         CategorieRestaurantRestaurantRepository $crr,
+        RestaurantRepository $restaurantRepository,
         CategorieRestaurantRepository $cr,
         SessionInterface $session
+    ): Response {
+        $categoriesRestaurants = $cr->findBy(["dateDesactivation" => null], ["titre" => "ASC"]);
+        $categorieRestaurantRestaurant = [];
+
+        foreach ($categoriesRestaurants as $key => $value) {
+            $categorieRestaurantRestaurant[$key][] = $value;
+            $categorieRestaurantRestaurant[$key][] = $crr->count(["dateSortie" => null, "categorieRestaurant" => $value->getId()]);
+        }
+
+        $panier = [];
+        $total = 0;
+        if ($session->has("panier")) {
+            $panier = $session->get("panier");
+            foreach ($panier as $value) {
+                $total += intval($value["montant"]);
+                if ($value["supplements"]) {
+                    foreach ($value["supplements"] as $valueSupp) {
+                        $total += intval($valueSupp['montant']);
+                    }
+                }
+            }
+        }
+
+        return $this->render('consommateur/index.html.twig', [
+            'restaurants' => $restaurantRepository->findBy([], ["nom" => "ASC"]),
+            'filtres' => $categorieRestaurantRestaurant,
+            'panier' => $panier,
+            'total' => $total,
+        ]);
+    }
+
+    /**
+     * @Route("/restaurants/zone/{zone}", name="restaurants_zone", methods={"GET"})
+     */
+    public function getRestaurantByZone(
+        CategorieRestaurantRestaurantRepository $crr,
+        RestaurantRepository $restaurantRepository,
+        CategorieRestaurantRepository $cr,
+        SessionInterface $session,
+        string $zone
     ): Response {
         $categoriesRestaurants = $cr->findBy(["dateDesactivation" => null], ["titre" => "ASC"]);
         $categorieRestaurantRestaurant = [];
@@ -59,35 +98,82 @@ class ConsommateurController extends AbstractController
         }
 
         return $this->render('consommateur/index.html.twig', [
-            'consommateurs' => $consommateurRepository->findAll(),
+            'restaurants' => $restaurantRepository->findBy(["zone" => $zone], ["nom" => "ASC"]),
             'filtres' => $categorieRestaurantRestaurant,
+            'panier' => $panier,
+            'total' => $total,
+            'titre' => $zone,
+        ]);
+    }
+
+    /**
+     * @Route("/restaurants/categorie/{categorie}", name="restaurants_categorie", methods={"GET"})
+     */
+    public function getRestaurantByCategorie(
+        CategorieRestaurantRestaurantRepository $crr,
+        RestaurantRepository $restaurantRepository,
+        CategorieRestaurantRepository $cr,
+        SessionInterface $session,
+        int $categorie
+    ): Response {
+        $categoriesRestaurants = $cr->findBy(["dateDesactivation" => null], ["titre" => "ASC"]);
+        $categorieRestaurantRestaurant = [];
+
+        foreach ($categoriesRestaurants as $key => $value) {
+            $categorieRestaurantRestaurant[$key][] = $value;
+            $categorieRestaurantRestaurant[$key][] = $crr->count(["dateSortie" => null, "categorieRestaurant" => $value->getId()]);
+        }
+
+        $panier = [];
+        $total = 0;
+        if ($session->has("panier")) {
+            $panier = $session->get("panier");
+
+            foreach ($panier as $value) {
+                $total += intval($value["montant"]);
+                if ($value["supplements"]) {
+                    foreach ($value["supplements"] as $valueSupp) {
+                        $total += intval($valueSupp['montant']);
+                    }
+                }
+            }
+        }
+
+        $categorieRestaurant = $cr->find($categorie);
+        $categorieRestaurantsR = $crr->findBy(["categorieRestaurant" => $categorieRestaurant->getId()]);
+        $restaurants = [];
+
+        foreach ($categorieRestaurantsR as $key => $value) {
+            $restaurants[] = $value->getRestaurant();
+        }
+
+        return $this->render('consommateur/index.html.twig', [
+            'restaurants' => $restaurants,
+            'filtres' => $categorieRestaurantRestaurant,
+            'categorie' => $categorieRestaurant,
             'panier' => $panier,
             'total' => $total,
         ]);
     }
-     /**
+
+    /**
      * @Route("/position", name="position", methods={"GET","POST"})
      */
-    public function position(Request $request,SessionInterface $session,TranslatorInterface $translator): Response
-    {
-        $session->set("lat", $request->request->get('lat'));
-        $session->set("lng", $request->request->get('lng'));
-        $httpClient = new \Http\Adapter\Guzzle6\Client();
-        //You must provide an API key
-        $provider = \Geocoder\Provider\Here\Here::createUsingApiKey($httpClient, 'BPpc_Vm8HKVv5bn_8bD4ow6ia-QncSvZDmjPOu2iW58');
-        $geocoder = new \Geocoder\StatefulGeocoder($provider,'fr');
-        $geocoder->setLocale('fr');
-        $result = $geocoder->reverseQuery(ReverseQuery::fromCoordinates($request->request->get('lat'), $request->request->get('lng')));
-        $translated = $translator->trans($result->first()->getSubLocality(),[],
-        'messages',
-        'fr_FR');
-        dd($result,$translated); // Londres
-        $formatter = new \Geocoder\Formatter\StringFormatter();
-        $result = $geocoder->reverseQuery(ReverseQuery::fromCoordinates($request->request->get('lat'), $request->request->get('lng')));
-        //$result = $geocoder->reverse(33.552658699999995, -7.661327999999999);
-        dd($result);
-        return $this->redirectToRoute('consommateur_index');
-        
+    public function position(
+        Request $request,
+        SessionInterface $session
+    ): Response {
+        if ($request->request->get('lat') && $request->request->get('lng')) {
+            $session->set("lat", $request->request->get('lat'));
+            $session->set("lng", $request->request->get('lng'));
+            $session->set("zone", "Hassami");
+        } else {
+            $session->set("lat", "33.57596");
+            $session->set("lng", "-7.67666");
+            $session->set("zone", $request->request->get('zone'));
+        }
+
+        return $this->redirectToRoute('restaurants_zone', ["zone" => $session->get("zone")]);
     }
 
     /**

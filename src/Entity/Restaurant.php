@@ -63,6 +63,11 @@ class Restaurant extends User
      */
     private $categorieRestaurantRestaurants;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $zone;
+
     public function __construct()
     {
         $this->menus = new ArrayCollection();
@@ -239,6 +244,18 @@ class Restaurant extends User
                 $categorieRestaurantRestaurant->setRestaurant(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getZone(): ?string
+    {
+        return $this->zone;
+    }
+
+    public function setZone(?string $zone): self
+    {
+        $this->zone = $zone;
 
         return $this;
     }

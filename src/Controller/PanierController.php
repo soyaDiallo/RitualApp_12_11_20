@@ -33,7 +33,6 @@ class PanierController extends AbstractController
             $panier = $session->get("panier");
         }
 
-        //dd($request);
         foreach ($request->request->all() as $key => $value) {
             if (explode("_", $key)[0] == "radios") {
                 if (!isset($panier[explode("_", $key)[2]])) {
@@ -127,13 +126,15 @@ class PanierController extends AbstractController
         ArticleRepository $articleRepository,
         SupplementRepository $supplementRepository
     ) {
-        //dd($session->get("panier"), $session->get("resto"),$session->get("lat"));
+        //  dd($session->get("panier"), $session->get("resto"), $session->get("lat"));
+
         $entityManager = $this->getDoctrine()->getManager();
-        $consommateur= $this->getUser();
-        $resto= $restaurantRepository->find($session->get("resto"));
-        $panier=$session->get("panier");
-        $ac=[];
-        $cs=[];
+        $consommateur = $this->getUser();
+        $resto = $restaurantRepository->find($session->get("resto"));
+        $panier = $session->get("panier");
+        $ac = [];
+        $cs = [];
+        
         $commande = new Commande();
         $commande->setLongitude($session->get("lng"));
         $commande->setLatitude($session->get("lat"));
@@ -151,6 +152,7 @@ class PanierController extends AbstractController
             $ac[$key]->setArticle($articleRepository->find($a['id']));
             $entityManager->persist($ac[$key]);
             $entityManager->flush();
+            
             foreach ($a['supplements'] as $key => $s) {
                 $cs[$key] = new CommandeSupplement();
                 $cs[$key]->setQuantite(1);
@@ -160,8 +162,8 @@ class PanierController extends AbstractController
                 $entityManager->flush();
             }
         }
+
         $session->remove("panier");
         return $this->redirectToRoute('consommateur_index');
-
     }
 }
